@@ -1,0 +1,57 @@
+# GitHub Pages Configuration for InSite Documentation
+
+title: InSite
+description: Enterprise Browser Automation Platform - 50 tools across 13 categories for MCP-based browser automation
+url: "https://your-org.github.io"
+baseurl: "/insite"
+
+# GitHub Pages settings
+github_username: your-org
+repository: insite
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+exclude:
+  - node_modules/
+  - .gitignore
+  - README.md
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - .eslintrc.json
+  - .prettierrc.json
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Getting Started
+    url: /getting-started.html
+  - title: API Reference
+    url: /api-reference.html
+  - title: Examples
+    url: /examples.html
+  - title: Deployment
+    url: /deployment.html
+
+# SEO settings
+lang: en_US
+author: InSite Enterprise Automation Platform
+
+# Social/meta settings
+twitter:
+  username: insite_platform
+  card: summary_large_image
+
+logo: /assets/images/insite-logo.png
+
+# Analytics (replace with your tracking ID)
+google_analytics: UA-XXXXXXXXX-X
+
+# Additional metadata
+version: "1.2.0"
+release_date: "2025-08-01"
+tools_count: 50
+categories_count: 13

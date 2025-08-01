@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples - InSite</title>
+    <meta name="description" content="Real-world examples and automation patterns for InSite platform">
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">InSite</a></h1>
+                <span class="tagline">Enterprise Browser Automation</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="container">
+                <h1>Examples & Use Cases</h1>
+                <p class="hero-description">
+                    Real-world automation patterns and enterprise use cases for InSite platform.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="examples-grid">
+                    <div class="example-category">
+                        <h2>🌐 Web Application Testing</h2>
+                        
+                        <div class="example">
+                            <h3>E-commerce Checkout Flow</h3>
+                            <p>Complete automated testing of shopping cart and checkout process with multiple payment methods.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://shop.example.com",
+      "waitUntil": "networkidle"
+    }
+  },
+  {
+    "name": "click_element",
+    "arguments": {
+      "selector": ".product-card:first-child .add-to-cart"
+    }
+  },
+  {
+    "name": "wait_for_element",
+    "arguments": {
+      "selector": ".cart-notification",
+      "state": "visible"
+    }
+  },
+  {
+    "name": "click_element",
+    "arguments": {
+      "selector": ".cart-icon"
+    }
+  },
+  {
+    "name": "click_element",
+    "arguments": {
+      "selector": ".checkout-button"
+    }
+  },
+  {
+    "name": "type_text",
+    "arguments": {
+      "selector": "#email",
+      "text": "test@example.com"
+    }
+  },
+  {
+    "name": "type_text",
+    "arguments": {
+      "selector": "#card-number",
+      "text": "4111111111111111"
+    }
+  },
+  {
+    "name": "screenshot",
+    "arguments": {
+      "fullPage": true
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Form Validation Testing</h3>
+                            <p>Comprehensive form validation testing with error handling and user feedback verification.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://forms.example.com/contact"
+    }
+  },
+  {
+    "name": "click_element",
+    "arguments": {
+      "selector": "#submit-button"
+    }
+  },
+  {
+    "name": "wait_for_element",
+    "arguments": {
+      "selector": ".validation-error",
+      "state": "visible",
+      "timeout": 5000
+    }
+  },
+  {
+    "name": "get_element_info",
+    "arguments": {
+      "selector": ".validation-error"
+    }
+  },
+  {
+    "name": "type_text",
+    "arguments": {
+      "selector": "#name",
+      "text": "John Doe"
+    }
+  },
+  {
+    "name": "type_text",
+    "arguments": {
+      "selector": "#email",
+      "text": "invalid-email"
+    }
+  },
+  {
+    "name": "click_element",
+    "arguments": {
+      "selector": "#submit-button"
+    }
+  },
+  {
+    "name": "screenshot",
+    "arguments": {
+      "fullPage": false
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-category">
+                        <h2>🔍 Performance Monitoring</h2>
+                        
+                        <div class="example">
+                            <h3>Page Load Performance Analysis</h3>
+                            <p>Monitor and analyze page load performance with Web Vitals metrics.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "performance_monitoring",
+    "arguments": {
+      "action": "start_monitoring",
+      "metrics": [
+        "pageLoadTime",
+        "firstContentfulPaint", 
+        "largestContentfulPaint",
+        "cumulativeLayoutShift"
+      ]
+    }
+  },
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://example.com/heavy-page",
+      "waitUntil": "networkidle"
+    }
+  },
+  {
+    "name": "performance_monitoring",
+    "arguments": {
+      "action": "get_metrics"
+    }
+  },
+  {
+    "name": "capture_performance_timeline",
+    "arguments": {
+      "action": "get_metrics"
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Network Request Monitoring</h3>
+                            <p>Track and analyze network requests for API performance and error detection.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "get_network_logs",
+    "arguments": {
+      "method": "POST",
+      "url_pattern": "/api/",
+      "limit": 50
+    }
+  },
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://api-heavy-app.example.com"
+    }
+  },
+  {
+    "name": "click_element",
+    "arguments": {
+      "selector": "#load-data-button"
+    }
+  },
+  {
+    "name": "wait_for_element",
+    "arguments": {
+      "selector": ".data-loaded",
+      "state": "visible",
+      "timeout": 10000
+    }
+  },
+  {
+    "name": "get_network_logs",
+    "arguments": {
+      "status": 200,
+      "limit": 20
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-category">
+                        <h2>🧪 Visual Testing</h2>
+                        
+                        <div class="example">
+                            <h3>Cross-Browser Visual Regression</h3>
+                            <p>Automated visual regression testing across multiple browser engines.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "visual_regression_testing",
+    "arguments": {
+      "action": "initialize",
+      "config": {
+        "threshold": 0.1,
+        "engines": ["chromium", "firefox", "webkit"]
+      }
+    }
+  },
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://example.com/homepage"
+    }
+  },
+  {
+    "name": "screenshot_compare",
+    "arguments": {
+      "action": "capture_baseline",
+      "name": "homepage-desktop"
+    }
+  },
+  {
+    "name": "switch_browser",
+    "arguments": {
+      "engine": "firefox"
+    }
+  },
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://example.com/homepage"
+    }
+  },
+  {
+    "name": "screenshot_compare",
+    "arguments": {
+      "action": "compare",
+      "name": "homepage-desktop",
+      "threshold": 5
+    }
+  },
+  {
+    "name": "visual_test_reporting",
+    "arguments": {
+      "action": "generate_report",
+      "format": "html"
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-category">
+                        <h2>🔧 Testing Framework Integration</h2>
+                        
+                        <div class="example">
+                            <h3>Playwright Test Integration</h3>
+                            <p>Seamless integration with Playwright Test runner for enterprise test suites.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "playwright_test_adapter",
+    "arguments": {
+      "action": "initialize"
+    }
+  },
+  {
+    "name": "playwright_test_adapter",
+    "arguments": {
+      "action": "configure",
+      "config": {
+        "testDir": "./e2e",
+        "workers": 4,
+        "retries": 2,
+        "projects": [
+          {
+            "name": "desktop-chrome",
+            "browser": "chromium",
+            "viewport": {"width": 1280, "height": 720}
+          },
+          {
+            "name": "desktop-firefox", 
+            "browser": "firefox",
+            "viewport": {"width": 1280, "height": 720}
+          },
+          {
+            "name": "mobile-safari",
+            "browser": "webkit",
+            "viewport": {"width": 375, "height": 667}
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "playwright_test_adapter",
+    "arguments": {
+      "action": "run_test",
+      "testPath": "./e2e/critical-user-flows.spec.js",
+      "outputDir": "./test-results"
+    }
+  },
+  {
+    "name": "test_reporter",
+    "arguments": {
+      "action": "generate_report",
+      "outputFormat": "html",
+      "analytics": {
+        "trends": true,
+        "performance": true,
+        "flakiness": true
+      }
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Advanced Test Reporting</h3>
+                            <p>Comprehensive test result aggregation and analytics across multiple frameworks.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "test_reporter",
+    "arguments": {
+      "action": "aggregate_results",
+      "sources": [
+        {
+          "framework": "playwright",
+          "resultsPath": "./playwright-results.json",
+          "format": "json"
+        },
+        {
+          "framework": "jest",
+          "resultsPath": "./jest-results.json", 
+          "format": "json"
+        },
+        {
+          "framework": "mocha",
+          "resultsPath": "./mocha-results.xml",
+          "format": "junit"
+        }
+      ]
+    }
+  },
+  {
+    "name": "test_reporter",
+    "arguments": {
+      "action": "get_analytics",
+      "analytics": {
+        "trends": true,
+        "performance": true,
+        "flakiness": true,
+        "coverage": true
+      }
+    }
+  },
+  {
+    "name": "test_reporter",
+    "arguments": {
+      "action": "compare_runs",
+      "compareWith": "./previous-results.json",
+      "threshold": {
+        "passRate": 95,
+        "performance": 30000
+      }
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-category">
+                        <h2>🔒 Security & Debugging</h2>
+                        
+                        <div class="example">
+                            <h3>Security Validation Workflow</h3>
+                            <p>Comprehensive security scanning and validation for web applications.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://secure-app.example.com"
+    }
+  },
+  {
+    "name": "validate_security",
+    "arguments": {
+      "checks": [
+        "https_redirect",
+        "secure_headers",
+        "mixed_content",
+        "csp_validation"
+      ],
+      "reportLevel": "comprehensive"
+    }
+  },
+  {
+    "name": "manage_certificates",
+    "arguments": {
+      "action": "validate"
+    }
+  },
+  {
+    "name": "handle_csp",
+    "arguments": {
+      "action": "report"
+    }
+  },
+  {
+    "name": "debug_mode",
+    "arguments": {
+      "action": "enable",
+      "features": ["security", "network", "console"]
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Advanced Debugging Session</h3>
+                            <p>Step-by-step debugging with element highlighting and execution tracing.</p>
+                            
+                            <div class="code-example">
+                                <pre><code>[
+  {
+    "name": "debug_mode",
+    "arguments": {
+      "action": "enable"
+    }
+  },
+  {
+    "name": "trace_execution",
+    "arguments": {
+      "action": "start",
+      "options": {
+        "screenshots": true,
+        "snapshots": true
+      }
+    }
+  },
+  {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://problematic-page.example.com"
+    }
+  },
+  {
+    "name": "highlight_element",
+    "arguments": {
+      "selector": "#problematic-element",
+      "style": {
+        "border": "3px solid red"
+      },
+      "tooltip": "Element causing issues"
+    }
+  },
+  {
+    "name": "get_console_logs",
+    "arguments": {
+      "level": "error"
+    }
+  },
+  {
+    "name": "trace_execution",
+    "arguments": {
+      "action": "stop"
+    }
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <h2>Enterprise Automation Patterns</h2>
+                
+                <div class="patterns-grid">
+                    <div class="pattern-card">
+                        <h3>🔄 Continuous Testing Pipeline</h3>
+                        <p>Integrate InSite into CI/CD pipelines for automated testing across environments.</p>
+                        <ul>
+                            <li>Multi-browser testing automation</li>
+                            <li>Visual regression detection</li>
+                            <li>Performance monitoring integration</li>
+                            <li>Security validation in deployment</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pattern-card">
+                        <h3>📊 Quality Assurance Dashboard</h3>
+                        <p>Real-time monitoring and reporting for enterprise quality assurance teams.</p>
+                        <ul>
+                            <li>Test result aggregation</li>
+                            <li>Performance trend analysis</li>
+                            <li>Flakiness detection and reporting</li>
+                            <li>Cross-browser compatibility tracking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pattern-card">
+                        <h3>🛡️ Security Compliance Automation</h3>
+                        <p>Automated security validation and compliance checking for enterprise applications.</p>
+                        <ul>
+                            <li>SSL certificate validation</li>
+                            <li>CSP policy enforcement</li>
+                            <li>Security header validation</li>
+                            <li>Vulnerability scanning integration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pattern-card">
+                        <h3>⚡ Performance Optimization</h3>
+                        <p>Continuous performance monitoring and optimization recommendations.</p>
+                        <ul>
+                            <li>Web Vitals tracking</li>
+                            <li>Performance timeline analysis</li>
+                            <li>Network request optimization</li>
+                            <li>Resource loading analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+    
+    <style>
+        .examples-grid {
+            display: grid;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .example-category {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .example-category h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .example {
+            margin-bottom: 3rem;
+        }
+        
+        .example:last-child {
+            margin-bottom: 0;
+        }
+        
+        .example h3 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .example p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .code-example {
+            background: var(--text-primary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .code-example pre {
+            color: #e2e8f0;
+            padding: 1.5rem;
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .patterns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pattern-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .pattern-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pattern-card h3 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pattern-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .pattern-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pattern-card li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .pattern-card li::before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .example-category {
+                padding: 1.5rem;
+            }
+            
+            .patterns-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

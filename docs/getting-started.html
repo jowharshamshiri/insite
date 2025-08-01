@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - InSite</title>
+    <meta name="description" content="Get started with InSite enterprise browser automation platform">
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">InSite</a></h1>
+                <span class="tagline">Enterprise Browser Automation</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="container">
+                <h1>Getting Started with InSite</h1>
+                <p class="hero-description">
+                    Set up and start using the 50-tool enterprise browser automation platform in minutes.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2>Quick Setup</h2>
+                    
+                    <div class="setup-steps">
+                        <div class="setup-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Prerequisites</h3>
+                                <p>Ensure you have the following installed:</p>
+                                <ul>
+                                    <li><strong>Node.js</strong> (v18 or higher)</li>
+                                    <li><strong>npm</strong> or <strong>yarn</strong></li>
+                                    <li><strong>Git</strong> (for cloning the repository)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="setup-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Installation</h3>
+                                <p>Clone the repository and install dependencies:</p>
+                                <div class="code-block">
+                                    <pre><code># Clone the repository
+git clone https://github.com/your-org/insite.git
+cd insite
+
+# Install dependencies
+npm install
+
+# Install Playwright browsers
+npx playwright install</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setup-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Build & Start</h3>
+                                <p>Build the project and start the MCP server:</p>
+                                <div class="code-block">
+                                    <pre><code># Build the project
+npm run build
+
+# Start the MCP server
+node dist/server.js</code></pre>
+                                </div>
+                                <p>The server will start and listen for MCP protocol connections.</p>
+                            </div>
+                        </div>
+
+                        <div class="setup-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Verify Installation</h3>
+                                <p>Test the installation with the validation script:</p>
+                                <div class="code-block">
+                                    <pre><code># Run the Phase 5B validation test
+node test-phase5b-complete.js</code></pre>
+                                </div>
+                                <p>You should see "🎉 PHASE 5B ENTERPRISE PLATFORM COMPLETE!" if everything is working correctly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <h2>Configuration</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h3>MCP Configuration</h3>
+                    <p>Configure InSite as an MCP server in your client application. Here's an example configuration:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>{
+  "mcpServers": {
+    "insite": {
+      "command": "node",
+      "args": ["/path/to/insite/dist/server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <h3>Environment Variables</h3>
+                    <p>Configure InSite behavior with environment variables:</p>
+                    
+                    <div class="env-vars">
+                        <div class="env-var">
+                            <strong>INSITE_HEADLESS</strong>
+                            <p>Run browsers in headless mode (default: true)</p>
+                            <code>INSITE_HEADLESS=false</code>
+                        </div>
+                        
+                        <div class="env-var">
+                            <strong>INSITE_BROWSER_ENGINE</strong>
+                            <p>Default browser engine (chromium, firefox, webkit)</p>
+                            <code>INSITE_BROWSER_ENGINE=chromium</code>
+                        </div>
+                        
+                        <div class="env-var">
+                            <strong>INSITE_VIEWPORT_WIDTH</strong>
+                            <p>Default viewport width (default: 1280)</p>
+                            <code>INSITE_VIEWPORT_WIDTH=1920</code>
+                        </div>
+                        
+                        <div class="env-var">
+                            <strong>INSITE_VIEWPORT_HEIGHT</strong>
+                            <p>Default viewport height (default: 720)</p>
+                            <code>INSITE_VIEWPORT_HEIGHT=1080</code>
+                        </div>
+                        
+                        <div class="env-var">
+                            <strong>INSITE_TIMEOUT</strong>
+                            <p>Default operation timeout in milliseconds (default: 30000)</p>
+                            <code>INSITE_TIMEOUT=60000</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2>First Steps</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h3>Basic Usage Example</h3>
+                    <p>Here's a simple example to get you started with basic page automation:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>{
+  "method": "tools/call",
+  "params": {
+    "name": "load_page",
+    "arguments": {
+      "url": "https://example.com",
+      "waitUntil": "domcontentloaded"
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <h3>Multi-Step Workflow</h3>
+                    <p>Chain multiple tools together for complex automation workflows:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// 1. Load page
+{
+  "name": "load_page",
+  "arguments": {
+    "url": "https://example.com/login",
+    "waitUntil": "networkidle"
+  }
+}
+
+// 2. Fill login form
+{
+  "name": "type_text",
+  "arguments": {
+    "selector": "#username",
+    "text": "your-username"
+  }
+}
+
+{
+  "name": "type_text",
+  "arguments": {
+    "selector": "#password",
+    "text": "your-password"
+  }
+}
+
+// 3. Submit form
+{
+  "name": "click_element",
+  "arguments": {
+    "selector": "#login-button"
+  }
+}
+
+// 4. Wait for navigation
+{
+  "name": "wait_for_navigation",
+  "arguments": {
+    "timeout": 10000
+  }
+}
+
+// 5. Take screenshot
+{
+  "name": "screenshot",
+  "arguments": {
+    "fullPage": true
+  }
+}</code></pre>
+                    </div>
+
+                    <h3>Advanced Features</h3>
+                    <p>Explore enterprise features like performance monitoring and visual testing:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Start performance monitoring
+{
+  "name": "performance_monitoring",
+  "arguments": {
+    "action": "start_monitoring",
+    "metrics": ["pageLoadTime", "firstContentfulPaint", "largestContentfulPaint"]
+  }
+}
+
+// Enable debug mode
+{
+  "name": "debug_mode",
+  "arguments": {
+    "action": "enable",
+    "features": ["console", "network", "performance"]
+  }
+}
+
+// Run visual regression test
+{
+  "name": "visual_regression_testing",
+  "arguments": {
+    "action": "run_tests",
+    "config": {
+      "threshold": 0.1,
+      "engines": ["chromium", "firefox"]
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <h2>Next Steps</h2>
+                <div class="next-steps-grid">
+                    <div class="next-step-card">
+                        <h3>📚 Explore the API</h3>
+                        <p>Learn about all 50 available tools and their parameters</p>
+                        <a href="api-reference.html" class="btn btn-primary">API Reference</a>
+                    </div>
+                    
+                    <div class="next-step-card">
+                        <h3>💡 See Examples</h3>
+                        <p>Check out practical examples and common automation patterns</p>
+                        <a href="examples.html" class="btn btn-primary">View Examples</a>
+                    </div>
+                    
+                    <div class="next-step-card">
+                        <h3>🚀 Enterprise Deployment</h3>
+                        <p>Deploy InSite in production environments with advanced configuration</p>
+                        <a href="deployment.html" class="btn btn-primary">Deployment Guide</a>
+                    </div>
+                    
+                    <div class="next-step-card">
+                        <h3>🔧 Testing Integration</h3>
+                        <p>Integrate with Playwright Test, Jest, Mocha, and other testing frameworks</p>
+                        <a href="testing-integration.html" class="btn btn-primary">Testing Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>InSite</h3>
+                    <p>Enterprise Browser Automation Platform</p>
+                    <p>50 tools • 13 categories • 100% enterprise ready</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="deployment.html">Deployment Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="troubleshooting.html">Troubleshooting</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="https://github.com/your-org/insite">GitHub</a></li>
+                        <li><a href="https://github.com/your-org/insite/issues">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Enterprise</h4>
+                    <ul>
+                        <li><a href="enterprise.html">Enterprise Features</a></li>
+                        <li><a href="security.html">Security</a></li>
+                        <li><a href="compliance.html">Compliance</a></li>
+                        <li><a href="support.html">Enterprise Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+    
+    <style>
+        .setup-steps {
+            margin: 2rem 0;
+        }
+        
+        .setup-step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+        }
+        
+        .step-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .step-content li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .code-block {
+            background: var(--text-primary);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .code-block pre {
+            color: #e2e8f0;
+            padding: 1.5rem;
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .env-vars {
+            margin: 2rem 0;
+        }
+        
+        .env-var {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .env-var strong {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .env-var p {
+            color: var(--text-secondary);
+            margin: 0.5rem 0;
+        }
+        
+        .env-var code {
+            background: var(--bg-alt);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+        
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .next-step-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .next-step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .next-step-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .next-step-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - InSite</title>
+    <meta name="description" content="Complete API reference for all 50 InSite tools">
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">InSite</a></h1>
+                <span class="tagline">Enterprise Browser Automation</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="api-layout">
+            <aside class="api-sidebar">
+                <nav class="api-nav">
+                    <h3>Tool Categories</h3>
+                    <ul>
+                        <li><a href="#navigation">Navigation Tools (5)</a></li>
+                        <li><a href="#visual">Visual Tools (2)</a></li>
+                        <li><a href="#dom">DOM Analysis (2)</a></li>
+                        <li><a href="#interaction">Interaction Tools (7)</a></li>
+                        <li><a href="#javascript">JavaScript Execution (3)</a></li>
+                        <li><a href="#console-network">Console & Network (4)</a></li>
+                        <li><a href="#configuration">Configuration (3)</a></li>
+                        <li><a href="#browser-management">Browser Management (4)</a></li>
+                        <li><a href="#debugging">Advanced Debugging (4)</a></li>
+                        <li><a href="#security">Security & Validation (3)</a></li>
+                        <li><a href="#monitoring">Monitoring & Analytics (4)</a></li>
+                        <li><a href="#visual-testing">Visual Testing (5)</a></li>
+                        <li><a href="#testing-integration">Testing Integration (4)</a></li>
+                    </ul>
+                    
+                    <h3>Reference</h3>
+                    <ul>
+                        <li><a href="#response-format">Response Format</a></li>
+                        <li><a href="#error-types">Error Types</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <div class="api-content">
+                <section class="api-intro">
+                    <h1>API Reference</h1>
+                    <p class="api-description">
+                        Complete reference for all 50 InSite tools across 13 categories. 
+                        Each tool follows the MCP (Model Context Protocol) specification.
+                    </p>
+                    
+                    <div class="api-stats">
+                        <div class="api-stat">
+                            <span class="stat-number">50</span>
+                            <span class="stat-label">Total Tools</span>
+                        </div>
+                        <div class="api-stat">
+                            <span class="stat-number">13</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="api-stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">MCP Compliant</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="navigation" class="api-section">
+                    <h2>Navigation Tools</h2>
+                    <p>Core page navigation and browser history management (5 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>load_page</h3>
+                        <p>Navigate to a URL and wait for page load completion.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>url</code> (string, required) - Target URL to navigate to</li>
+                                <li><code>waitUntil</code> (string, optional) - Wait condition: "load", "domcontentloaded", "networkidle", "commit" (default: "domcontentloaded")</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "load_page",
+  "arguments": {
+    "url": "https://example.com",
+    "waitUntil": "networkidle"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>go_back</h3>
+                        <p>Navigate backward in browser history.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>timeout</code> (number, optional) - Timeout in milliseconds (default: 30000)</li>
+                                <li><code>waitUntil</code> (string, optional) - Wait condition (default: "load")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>go_forward</h3>
+                        <p>Navigate forward in browser history.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>timeout</code> (number, optional) - Timeout in milliseconds (default: 30000)</li>
+                                <li><code>waitUntil</code> (string, optional) - Wait condition (default: "load")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>reload_page</h3>
+                        <p>Reload the current page with optional cache control.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>ignoreCache</code> (boolean, optional) - Hard refresh ignoring cache (default: false)</li>
+                                <li><code>timeout</code> (number, optional) - Timeout in milliseconds (default: 30000)</li>
+                                <li><code>waitUntil</code> (string, optional) - Wait condition (default: "load")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>get_current_url</h3>
+                        <p>Retrieve the current page URL.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="visual" class="api-section">
+                    <h2>Visual Tools</h2>
+                    <p>Screenshot capture and viewport management (2 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>screenshot</h3>
+                        <p>Capture page screenshots with quality control.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>fullPage</code> (boolean, optional) - Capture full scrollable page (default: true)</li>
+                                <li><code>quality</code> (number, optional) - JPEG quality 0-100 (PNG ignores this)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "screenshot",
+  "arguments": {
+    "fullPage": true,
+    "quality": 90
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>get_viewport_info</h3>
+                        <p>Get current viewport dimensions and device pixel ratio.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Returns</h4>
+                            <pre><code>{
+  "width": 1280,
+  "height": 720,
+  "devicePixelRatio": 2.0
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="interaction" class="api-section">
+                    <h2>Interaction Tools</h2>
+                    <p>User interaction simulation and element manipulation (7 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>click_element</h3>
+                        <p>Click elements using CSS selectors.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for target element</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout in milliseconds (default: 30000)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>type_text</h3>
+                        <p>Type text into input elements with realistic timing.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for input element</li>
+                                <li><code>text</code> (string, required) - Text to type</li>
+                                <li><code>delay</code> (number, optional) - Keystroke delay in milliseconds (default: 0)</li>
+                                <li><code>clear</code> (boolean, optional) - Clear existing text first (default: true)</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>hover_element</h3>
+                        <p>Trigger hover effects on elements.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for target element</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                                <li><code>force</code> (boolean, optional) - Bypass actionability checks (default: false)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>scroll_page</h3>
+                        <p>Scroll page or specific elements.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>direction</code> (string, optional) - "up", "down", "left", "right" (default: "down")</li>
+                                <li><code>amount</code> (number, optional) - Scroll distance in pixels (default: 500)</li>
+                                <li><code>selector</code> (string, optional) - Element selector to scroll (defaults to page)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>press_key</h3>
+                        <p>Press keyboard keys and key combinations.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>key</code> (string, required) - Key to press (e.g., "Enter", "Tab", "Control+a")</li>
+                                <li><code>selector</code> (string, optional) - Element to focus before key press</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>wait_for_element</h3>
+                        <p>Wait for element state changes.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for target element</li>
+                                <li><code>state</code> (string, optional) - "visible", "hidden", "attached", "detached" (default: "visible")</li>
+                                <li><code>timeout</code> (number, optional) - Wait timeout (default: 30000)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>wait_for_navigation</h3>
+                        <p>Wait for page navigation completion.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>url</code> (string, optional) - URL pattern to wait for</li>
+                                <li><code>timeout</code> (number, optional) - Wait timeout (default: 30000)</li>
+                                <li><code>waitUntil</code> (string, optional) - Wait condition (default: "load")</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="testing-integration" class="api-section">
+                    <h2>Testing Framework Integration</h2>
+                    <p>Integration with popular testing frameworks (4 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>playwright_test_adapter</h3>
+                        <p>Integration adapter for Playwright Test runner.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - "initialize", "configure", "run_test", "get_results", "cleanup"</li>
+                                <li><code>config</code> (object, optional) - Playwright Test configuration</li>
+                                <li><code>testPath</code> (string, optional) - Specific test file or pattern</li>
+                                <li><code>outputDir</code> (string, optional) - Output directory for reports</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "playwright_test_adapter",
+  "arguments": {
+    "action": "configure",
+    "config": {
+      "testDir": "./tests",
+      "workers": 2,
+      "retries": 1,
+      "projects": [
+        {"name": "chromium", "browser": "chromium"},
+        {"name": "firefox", "browser": "firefox"}
+      ]
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>jest_adapter</h3>
+                        <p>Integration adapter for Jest testing framework.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - "initialize", "configure", "run_test", "get_results", "watch"</li>
+                                <li><code>config</code> (object, optional) - Jest configuration options</li>
+                                <li><code>testPath</code> (string, optional) - Test file or pattern</li>
+                                <li><code>watchMode</code> (boolean, optional) - Enable watch mode</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>mocha_adapter</h3>
+                        <p>Integration adapter for Mocha testing framework.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - "initialize", "configure", "run_test", "get_results", "watch"</li>
+                                <li><code>config</code> (object, optional) - Mocha configuration options</li>
+                                <li><code>testPath</code> (string, optional) - Test specification</li>
+                                <li><code>watch</code> (boolean, optional) - Enable watch mode</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>test_reporter</h3>
+                        <p>Advanced test reporting and result aggregation.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - "generate_report", "aggregate_results", "export_data", "get_analytics", "compare_runs"</li>
+                                <li><code>sources</code> (array, optional) - Test result sources to aggregate</li>
+                                <li><code>outputFormat</code> (string, optional) - Report format: "html", "json", "pdf", "xml", "csv"</li>
+                                <li><code>analytics</code> (object, optional) - Analytics configuration</li>
+                                <li><code>compareWith</code> (string, optional) - Previous results for comparison</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="response-format" class="api-section">
+                    <h2>Response Format</h2>
+                    <p>All tools return responses in the following standardized format:</p>
+                    
+                    <div class="tool-example">
+                        <pre><code>{
+  "success": true|false,
+  "data": {
+    // Tool-specific response data
+  },
+  "error": {
+    "type": "ERROR_TYPE",
+    "message": "Error description",
+    "details": {}
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <section id="error-types" class="api-section">
+                    <h2>Error Types</h2>
+                    <p>InSite uses the following standardized error types:</p>
+                    
+                    <div class="error-types">
+                        <div class="error-type">
+                            <h4>BROWSER_NOT_INITIALIZED</h4>
+                            <p>Browser not started or initialization failed</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>ELEMENT_NOT_FOUND</h4>
+                            <p>CSS selector matched no elements on the page</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>TIMEOUT_ERROR</h4>
+                            <p>Operation exceeded the specified timeout duration</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>NAVIGATION_FAILED</h4>
+                            <p>Page navigation was unsuccessful</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>JAVASCRIPT_ERROR</h4>
+                            <p>JavaScript execution failed or encountered an error</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>NETWORK_ERROR</h4>
+                            <p>Network request failed or timed out</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>INVALID_URL</h4>
+                            <p>URL format is invalid or malformed</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>INVALID_SELECTOR</h4>
+                            <p>CSS selector syntax is invalid</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="best-practices" class="api-section">
+                    <h2>Best Practices</h2>
+                    
+                    <div class="best-practices">
+                        <div class="practice">
+                            <h4>1. Error Handling</h4>
+                            <p>Always check the <code>success</code> field in responses and handle errors appropriately with retry logic where needed.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>2. Timeouts</h4>
+                            <p>Set appropriate timeouts based on expected page load times and network conditions. Default timeouts may be too short for slow networks.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>3. Element Waiting</h4>
+                            <p>Use <code>wait_for_element</code> before interacting with dynamic content to ensure elements are ready for interaction.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>4. Resource Management</h4>
+                            <p>Call <code>close_browser</code> when finished to clean up resources and prevent memory leaks in long-running processes.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>5. Performance</h4>
+                            <p>Use <code>networkidle</code> wait condition for SPAs, monitor console and network logs for debugging, and implement proper retry logic.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+    
+    <style>
+        .api-layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+        
+        .api-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .api-nav h3 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .api-nav h3:first-child {
+            margin-top: 0;
+        }
+        
+        .api-nav ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .api-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .api-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        
+        .api-nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .api-content {
+            flex: 1;
+            min-width: 0;
+            padding: 2rem;
+        }
+        
+        .api-intro {
+            margin-bottom: 3rem;
+        }
+        
+        .api-intro h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .api-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .api-stats {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .api-stat {
+            text-align: center;
+        }
+        
+        .api-section {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3rem;
+        }
+        
+        .api-section:last-child {
+            border-bottom: none;
+        }
+        
+        .api-section h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .api-section > p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tool {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tool h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+        }
+        
+        .tool > p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .tool-params,
+        .tool-example {
+            margin-top: 1.5rem;
+        }
+        
+        .tool-params h4,
+        .tool-example h4 {
+            color: var(--text-primary);
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .tool-params ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tool-params li {
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .tool-params code {
+            background: var(--bg-alt);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .tool-example pre {
+            background: var(--text-primary);
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .error-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .error-type {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--error-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+        
+        .error-type h4 {
+            color: var(--error-color);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .error-type p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .best-practices {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .practice {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--success-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+        
+        .practice h4 {
+            color: var(--success-color);
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .practice p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .practice code {
+            background: var(--bg-alt);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 1024px) {
+            .api-layout {
+                flex-direction: column;
+            }
+            
+            .api-sidebar {
+                width: 100%;
+                position: static;
+                order: 2;
+            }
+            
+            .api-content {
+                order: 1;
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .api-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .error-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>
