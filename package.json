@@ -1,14 +1,25 @@
 {
-  "name": "insite",
-  "version": "1.2.0",
-  "description": "InSite - Enterprise Browser Automation Platform with 50 operational tools and MCP protocol support",
+  "name": "insite-mcp",
+  "version": "1.2.4",
+  "description": "MCP server for browser automation with 52 tools using Playwright",
   "main": "dist/server.js",
+  "bin": {
+    "insite-mcp": "./bin/insite.js"
+  },
   "type": "module",
   "scripts": {
+    "install:full": "npm install && npx playwright install && npm run build",
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
-    "test": "vitest",
+    "test": "npm run test:unit && npm run test:integration && npm run test:e2e && npm run cleanup",
+    "test:unit": "node tests/unit/test-server.js && node tests/unit/test-configuration-tools.js && node tests/unit/test-console-network-tools.js && node tests/unit/test-javascript-tools.js && node tests/unit/test-navigation-tools.js && node tests/unit/test-browser-engines.js && npm run cleanup",
+    "test:integration": "node tests/integration/test-mvp-complete.js && node tests/integration/test-mvp-final.js && node tests/integration/test-phase5b-complete.js && npm run cleanup",
+    "test:e2e": "node tests/e2e/test-advanced-interactions.js && node tests/e2e/test-real-interaction.js && npm run cleanup",
+    "test:quick": "node tests/integration/test-mvp-complete.js && npm run cleanup",
+    "test:enterprise": "node tests/integration/test-phase5b-complete.js && npm run cleanup",
+    "cleanup": "node scripts/cleanup-temp.js",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
     "clean": "rimraf dist",
@@ -16,7 +27,6 @@
   },
   "keywords": [
     "insite",
-    "enterprise-automation",
     "browser-automation",
     "mcp",
     "model-context-protocol",
@@ -24,10 +34,18 @@
     "web-automation",
     "testing-framework",
     "visual-testing",
-    "security-validation"
+    "security-validation",
+    "mcp-server"
   ],
-  "author": "InSite Enterprise Automation Platform",
+  "author": {
+    "name": "Bahram Shamshiri",
+    "email": "jowharshamshiri@gmail.com"
+  },
   "license": "MIT",
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/jowharshamshiri"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
     "playwright": "^1.47.0",
@@ -47,5 +65,19 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "files": [
+    "dist/",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jowharshamshiri/insite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jowharshamshiri/insite/issues"
+  },
+  "homepage": "https://jowharshamshiri.github.io/insite"
 }

@@ -340,6 +340,125 @@ export class BrowserManager {
   }
 
   /**
+   * Scroll to an element and take a screenshot of it
+   */
+  public async scrollToElementAndScreenshot(selector: string, options: {
+    filePath: string;
+    quality?: number;
+    format?: 'png' | 'jpeg';
+    padding?: number;
+    timeout?: number;
+  }): Promise<string> {
+    validateSelector(selector);
+    const page = this.getPage();
+    
+    try {
+      const element = page.locator(selector);
+      
+      // Wait for element to be visible
+      const waitOptions: { timeout?: number } = {};
+      if (options.timeout !== undefined) {
+        waitOptions.timeout = options.timeout;
+      } else if (this.config.timeout !== undefined) {
+        waitOptions.timeout = this.config.timeout;
+      }
+      
+      await element.waitFor({ state: 'visible', ...waitOptions });
+      
+      // Scroll element into view
+      await element.scrollIntoViewIfNeeded();
+      
+      // Wait for any animations to complete
+      await page.waitForTimeout(500);
+      
+      // Take screenshot of the element with optional padding
+      await withTimeout(
+        element.screenshot({
+          path: options.filePath,
+          ...(options.quality ? { quality: options.quality } : {}),
+          type: options.format ?? 'png',
+        }),
+        this.config.timeout!,
+        `Take element screenshot to ${options.filePath}`
+      );
+
+      return options.filePath;
+
+    } catch (error) {
+      throw handlePlaywrightError(error, `Scroll to and screenshot element ${selector}`);
+    }
+  }
+
+  /**
+   * Capture the entire scrollable page height in one long image
+   */
+  public async captureFullScrollablePage(options: {
+    filePath: string;
+    quality?: number;
+    format?: 'png' | 'jpeg';
+    timeout?: number;
+  }): Promise<string> {
+    const page = this.getPage();
+    
+    try {
+      // Get the full page dimensions including scrollable content
+      const dimensions = await page.evaluate(() => {
+        return {
+          scrollWidth: Math.max(
+            document.body.scrollWidth,
+            document.body.offsetWidth,
+            document.documentElement.clientWidth,
+            document.documentElement.scrollWidth,
+            document.documentElement.offsetWidth
+          ),
+          scrollHeight: Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
+          ),
+          viewportWidth: window.innerWidth,
+          viewportHeight: window.innerHeight
+        };
+      });
+
+      // Set viewport to capture the full width if needed
+      if (dimensions.scrollWidth > dimensions.viewportWidth) {
+        await page.setViewportSize({
+          width: Math.min(dimensions.scrollWidth, 1920), // Cap at 1920px width for performance
+          height: dimensions.viewportHeight
+        });
+      }
+
+      // Scroll to top to ensure we start from the beginning
+      await page.evaluate(() => {
+        window.scrollTo(0, 0);
+      });
+      
+      // Wait for any loading or animations
+      await page.waitForTimeout(1000);
+
+      // Take full page screenshot
+      await withTimeout(
+        page.screenshot({
+          path: options.filePath,
+          fullPage: true,
+          ...(options.quality ? { quality: options.quality } : {}),
+          type: options.format ?? 'png',
+        }),
+        (options.timeout || this.config.timeout!) * 2, // Double timeout for large pages
+        `Capture full scrollable page to ${options.filePath}`
+      );
+
+      return options.filePath;
+
+    } catch (error) {
+      throw handlePlaywrightError(error, `Capture full scrollable page to ${options.filePath}`);
+    }
+  }
+
+  /**
    * Get current URL
    */
   public getCurrentUrl(): string {

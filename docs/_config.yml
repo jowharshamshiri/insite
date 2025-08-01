@@ -33,8 +33,6 @@ navigation:
     url: /api-reference.html
   - title: Examples
     url: /examples.html
-  - title: Deployment
-    url: /deployment.html
 
 # SEO settings
 lang: en_US

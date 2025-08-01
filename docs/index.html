@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InSite - Enterprise Browser Automation Platform</title>
-    <meta name="description" content="50-tool enterprise browser automation platform with MCP protocol support">
+    <title>InSite - Browser Automation Platform</title>
+    <meta name="description" content="Browser automation MCP server for web testing and automation">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
@@ -13,7 +13,7 @@
         <nav class="nav">
             <div class="nav-brand">
                 <h1>InSite</h1>
-                <span class="tagline">Enterprise Browser Automation</span>
+                <span class="tagline">Browser Automation</span>
             </div>
             <ul class="nav-links">
                 <li><a href="#overview">Overview</a></li>
@@ -21,7 +21,6 @@
                 <li><a href="api-reference.html">API Reference</a></li>
                 <li><a href="getting-started.html">Get Started</a></li>
                 <li><a href="examples.html">Examples</a></li>
-                <li><a href="deployment.html">Deployment</a></li>
             </ul>
         </nav>
     </header>
@@ -29,33 +28,15 @@
     <main class="main">
         <section class="hero">
             <div class="hero-content">
-                <h2>50-Tool Enterprise Browser Automation Platform</h2>
+                <h2>Browser Automation MCP Server</h2>
                 <p class="hero-description">
-                    Complete MCP (Model Context Protocol) server implementation for enterprise browser automation, 
-                    offering advanced debugging, security validation, visual testing, and testing framework integration.
+                    MCP (Model Context Protocol) server implementation for browser automation with 
+                    debugging, security validation, visual testing, and testing framework integration.
                 </p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">50</span>
-                        <span class="stat-label">Operational Tools</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">13</span>
-                        <span class="stat-label">Tool Categories</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Browser Engines</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Enterprise Ready</span>
-                    </div>
-                </div>
                 <div class="hero-actions">
                     <a href="getting-started.html" class="btn btn-primary">Get Started</a>
                     <a href="api-reference.html" class="btn btn-secondary">View API</a>
-                    <a href="https://github.com/your-org/insite" class="btn btn-outline">GitHub</a>
+                    <a href="https://github.com/jowharshamshiri/insite" class="btn btn-outline">GitHub</a>
                 </div>
             </div>
         </section>
@@ -65,28 +46,28 @@
                 <h2>Platform Overview</h2>
                 <div class="overview-grid">
                     <div class="overview-card">
-                        <h3>🚀 Enterprise Ready</h3>
-                        <p>Production-ready platform with comprehensive error handling, timeout management, and cross-platform compatibility.</p>
+                        <h3>Error Handling</h3>
+                        <p>Error handling, timeout management, and cross-platform compatibility.</p>
                     </div>
                     <div class="overview-card">
-                        <h3>🔧 50 Operational Tools</h3>
-                        <p>Complete automation toolkit spanning navigation, interaction, debugging, security, monitoring, and testing.</p>
+                        <h3>Comprehensive Tools</h3>
+                        <p>Automation tools spanning navigation, interaction, debugging, security, monitoring, and testing.</p>
                     </div>
                     <div class="overview-card">
-                        <h3>🌐 Multi-Browser Support</h3>
-                        <p>Dynamic switching between Chromium, Firefox, and WebKit engines with state preservation.</p>
+                        <h3>Multi-Browser Support</h3>
+                        <p>Switch between Chromium, Firefox, and WebKit engines with state preservation.</p>
                     </div>
                     <div class="overview-card">
-                        <h3>🔒 Security & Validation</h3>
-                        <p>Advanced security scanning, CSP handling, certificate management, and vulnerability detection.</p>
+                        <h3>Security & Validation</h3>
+                        <p>Security scanning, CSP handling, certificate management, and vulnerability detection.</p>
                     </div>
                     <div class="overview-card">
-                        <h3>📊 Advanced Analytics</h3>
-                        <p>Real-time performance monitoring, error tracking, usage analytics, and session journey analysis.</p>
+                        <h3>Analytics</h3>
+                        <p>Performance monitoring, error tracking, usage analytics, and session journey analysis.</p>
                     </div>
                     <div class="overview-card">
-                        <h3>🧪 Testing Integration</h3>
-                        <p>Seamless integration with Playwright Test, Jest, Mocha, and advanced test reporting capabilities.</p>
+                        <h3>Testing Integration</h3>
+                        <p>Integration with Playwright Test, Jest, Mocha, and test reporting capabilities.</p>
                     </div>
                 </div>
             </div>
@@ -97,35 +78,94 @@
                 <h2>Feature Categories</h2>
                 <div class="features-grid">
                     <div class="feature-category">
-                        <h3>Core Automation (20 tools)</h3>
+                        <h3>Page Control (5 tools)</h3>
                         <ul>
-                            <li><strong>Navigation:</strong> Page loading, history management, URL handling</li>
-                            <li><strong>Visual:</strong> Screenshot capture, viewport management</li>
-                            <li><strong>DOM:</strong> Content extraction, title retrieval</li>
-                            <li><strong>Interaction:</strong> Clicking, typing, hovering, scrolling, key presses</li>
-                            <li><strong>JavaScript:</strong> Code execution, element analysis</li>
-                            <li><strong>Wait & Sync:</strong> Element state waiting, navigation waiting</li>
+                            <li><strong>Navigation:</strong> Page loading, history management, URL handling, page reload</li>
+                            <li><strong>Screenshots:</strong> Full page and viewport capture with quality control</li>
                         </ul>
                     </div>
                     <div class="feature-category">
-                        <div class="feature-category">
-                        <h3>Platform Features (10 tools)</h3>
+                        <h3>Element Interaction (7 tools)</h3>
+                        <ul>
+                            <li><strong>User Actions:</strong> Clicking, typing, hovering, scrolling, key presses</li>
+                            <li><strong>Element Targeting:</strong> CSS selector-based interaction with timeout handling</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Content Extraction (3 tools)</h3>
+                        <ul>
+                            <li><strong>DOM Analysis:</strong> Page content, element information, title retrieval</li>
+                            <li><strong>Data Extraction:</strong> Structured content extraction from page elements</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>JavaScript Execution (3 tools)</h3>
+                        <ul>
+                            <li><strong>Code Execution:</strong> JavaScript evaluation on page and element contexts</li>
+                            <li><strong>Dynamic Analysis:</strong> Runtime element inspection and manipulation</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Synchronization (2 tools)</h3>
+                        <ul>
+                            <li><strong>Wait Conditions:</strong> Element state waiting, navigation completion</li>
+                            <li><strong>Timing Control:</strong> Smart waiting for dynamic content and async operations</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Console & Network (4 tools)</h3>
                         <ul>
                             <li><strong>Console Monitoring:</strong> Real-time message capture and filtering</li>
-                            <li><strong>Network Monitoring:</strong> Request/response tracking with analysis</li>
-                            <li><strong>Configuration:</strong> Viewport, user agent, geolocation setup</li>
-                            <li><strong>Browser Management:</strong> Multi-engine support and discovery</li>
+                            <li><strong>Network Monitoring:</strong> Request/response tracking with comprehensive analysis</li>
                         </ul>
                     </div>
+                    <div class="feature-category">
+                        <h3>Browser Configuration (4 tools)</h3>
+                        <ul>
+                            <li><strong>Viewport Control:</strong> Dynamic viewport, user agent, geolocation configuration</li>
+                            <li><strong>Browser Lifecycle:</strong> Browser initialization and cleanup management</li>
+                        </ul>
                     </div>
                     <div class="feature-category">
-                        <h3>Enterprise Features (20 tools)</h3>
+                        <h3>Multi-Browser (3 tools)</h3>
                         <ul>
-                            <li><strong>Advanced Debugging:</strong> Element highlighting, execution tracing, performance timeline</li>
-                            <li><strong>Security & Validation:</strong> CSP handling, certificate management, security scanning</li>
-                            <li><strong>Monitoring & Analytics:</strong> Usage tracking, error monitoring, performance analysis</li>
-                            <li><strong>Visual Testing:</strong> Screenshot comparison, regression testing, cross-browser validation</li>
-                            <li><strong>Testing Integration:</strong> Playwright, Jest, Mocha adapters with advanced reporting</li>
+                            <li><strong>Engine Support:</strong> Chromium, Firefox, WebKit browser engines</li>
+                            <li><strong>Dynamic Switching:</strong> Runtime browser engine switching with state preservation</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Debugging (4 tools)</h3>
+                        <ul>
+                            <li><strong>Visual Debugging:</strong> Element highlighting, execution tracing</li>
+                            <li><strong>Performance Analysis:</strong> Timeline capture, debug mode with comprehensive logging</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Security (3 tools)</h3>
+                        <ul>
+                            <li><strong>Security Validation:</strong> CSP handling, certificate management</li>
+                            <li><strong>Vulnerability Assessment:</strong> Security scanning and compliance checking</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Monitoring (4 tools)</h3>
+                        <ul>
+                            <li><strong>Analytics:</strong> Usage tracking, error monitoring, performance analysis</li>
+                            <li><strong>Session Analysis:</strong> User journey tracking and behavioral insights</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Visual Testing (5 tools)</h3>
+                        <ul>
+                            <li><strong>Regression Testing:</strong> Screenshot comparison, cross-browser validation</li>
+                            <li><strong>Visual Analysis:</strong> Element-level comparison, comprehensive test reporting</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Test Integration (4 tools)</h3>
+                        <ul>
+                            <li><strong>Framework Adapters:</strong> Playwright, Jest, Mocha integration</li>
+                            <li><strong>Reporting:</strong> Test result aggregation, analytics, and trend analysis</li>
                         </ul>
                     </div>
                 </div>
@@ -134,7 +174,34 @@
 
         <section class="section">
             <div class="container">
-                <h2>Quick Start Example</h2>
+                <h2>Quick Start</h2>
+                <div class="quick-start">
+                    <h3>Installation</h3>
+                    <p>Get started instantly with npx (recommended):</p>
+                    <div class="install-command">
+                        <pre><code>npx insite-mcp</code></pre>
+                    </div>
+                    
+                    <p>Or install globally:</p>
+                    <div class="install-command">
+                        <pre><code>npm install -g insite-mcp</code></pre>
+                    </div>
+                    
+                    <h3>MCP Configuration</h3>
+                    <p>Add to your MCP client configuration (npx - recommended):</p>
+                    <div class="config-example">
+                        <pre><code>{
+  "mcpServers": {
+    "insite": {
+      "command": "npx",
+      "args": ["insite-mcp"]
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <h2>Usage Examples</h2>
                 <div class="code-example">
                     <div class="code-tabs">
                         <button class="tab-btn active" data-tab="basic">Basic Usage</button>
@@ -234,71 +301,68 @@
 
         <section class="section section-alt">
             <div class="container">
-                <h2>Why Choose InSite?</h2>
+                <h2>Key Features</h2>
                 <div class="benefits-grid">
                     <div class="benefit">
-                        <h3>🎯 Complete Solution</h3>
-                        <p>All-in-one platform eliminating the need for multiple browser automation tools and frameworks.</p>
+                        <h3>Single MCP Server</h3>
+                        <p>Single server providing browser automation tools without needing multiple automation frameworks.</p>
                     </div>
                     <div class="benefit">
-                        <h3>⚡ Production Ready</h3>
-                        <p>Battle-tested with comprehensive error handling, timeout management, and enterprise-grade reliability.</p>
+                        <h3>Error Handling</h3>
+                        <p>Error handling, timeout management, and cross-platform compatibility.</p>
                     </div>
                     <div class="benefit">
-                        <h3>🔧 Extensible Architecture</h3>
-                        <p>MCP protocol compliance ensures seamless integration with existing workflows and AI systems.</p>
+                        <h3>MCP Protocol</h3>
+                        <p>MCP protocol compliance enables integration with existing workflows and AI systems.</p>
                     </div>
                     <div class="benefit">
-                        <h3>📈 Advanced Analytics</h3>
-                        <p>Built-in monitoring, performance analysis, and reporting capabilities for enterprise insights.</p>
+                        <h3>Built-in Monitoring</h3>
+                        <p>Built-in monitoring, performance analysis, and reporting capabilities.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>InSite</h3>
-                    <p>Enterprise Browser Automation Platform</p>
-                    <p>50 tools • 13 categories • 100% enterprise ready</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Documentation</h4>
-                    <ul>
-                        <li><a href="getting-started.html">Getting Started</a></li>
-                        <li><a href="api-reference.html">API Reference</a></li>
-                        <li><a href="examples.html">Examples</a></li>
-                        <li><a href="deployment.html">Deployment Guide</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="https://github.com/your-org/insite">GitHub</a></li>
-                        <li><a href="https://github.com/your-org/insite/issues">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Enterprise</h4>
-                    <ul>
-                        <li><a href="enterprise.html">Enterprise Features</a></li>
-                        <li><a href="security.html">Security</a></li>
-                        <li><a href="compliance.html">Compliance</a></li>
-                        <li><a href="support.html">Enterprise Support</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="assets/script.js"></script>
+    
+    <style>
+        .quick-start {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .quick-start h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .install-command, .config-example {
+            background: var(--text-primary);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        
+        .install-command pre, .config-example pre {
+            color: #e2e8f0;
+            padding: 1rem;
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+        
+        .quick-start p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+    </style>
 </body>
 </html>

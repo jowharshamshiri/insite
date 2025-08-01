@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Getting Started - InSite</title>
-    <meta name="description" content="Get started with InSite enterprise browser automation platform">
+    <meta name="description" content="Get started with InSite browser automation platform">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
@@ -13,14 +13,13 @@
         <nav class="nav">
             <div class="nav-brand">
                 <h1><a href="index.html" style="text-decoration: none; color: inherit;">InSite</a></h1>
-                <span class="tagline">Enterprise Browser Automation</span>
+                <span class="tagline">Browser Automation</span>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="getting-started.html">Get Started</a></li>
                 <li><a href="api-reference.html">API Reference</a></li>
                 <li><a href="examples.html">Examples</a></li>
-                <li><a href="deployment.html">Deployment</a></li>
             </ul>
         </nav>
     </header>
@@ -30,7 +29,7 @@
             <div class="container">
                 <h1>Getting Started with InSite</h1>
                 <p class="hero-description">
-                    Set up and start using the 50-tool enterprise browser automation platform in minutes.
+                    Set up and start using the browser automation platform.
                 </p>
             </div>
         </section>
@@ -58,7 +57,18 @@
                             <div class="step-number">2</div>
                             <div class="step-content">
                                 <h3>Installation</h3>
-                                <p>Clone the repository and install dependencies:</p>
+                                <p><strong>Quick Start with npx (recommended):</strong></p>
+                                <div class="code-block">
+                                    <pre><code>npx insite-mcp</code></pre>
+                                </div>
+                                <p>This will automatically install and start the MCP server.</p>
+                                
+                                <p><strong>Global Installation (alternative):</strong></p>
+                                <div class="code-block">
+                                    <pre><code>npm install -g insite-mcp</code></pre>
+                                </div>
+                                
+                                <p><strong>Development Installation:</strong></p>
                                 <div class="code-block">
                                     <pre><code># Clone the repository
 git clone https://github.com/your-org/insite.git
@@ -76,8 +86,16 @@ npx playwright install</code></pre>
                         <div class="setup-step">
                             <div class="step-number">3</div>
                             <div class="step-content">
-                                <h3>Build & Start</h3>
-                                <p>Build the project and start the MCP server:</p>
+                                <h3>Start Using</h3>
+                                <p><strong>With npx (no additional steps needed):</strong></p>
+                                <p>The server starts automatically when using <code>npx insite-mcp</code>.</p>
+                                
+                                <p><strong>With global installation:</strong></p>
+                                <div class="code-block">
+                                    <pre><code>insite-mcp</code></pre>
+                                </div>
+                                
+                                <p><strong>Development build:</strong></p>
                                 <div class="code-block">
                                     <pre><code># Build the project
 npm run build
@@ -93,12 +111,17 @@ node dist/server.js</code></pre>
                             <div class="step-number">4</div>
                             <div class="step-content">
                                 <h3>Verify Installation</h3>
-                                <p>Test the installation with the validation script:</p>
+                                <p>Test the installation with the test suite:</p>
                                 <div class="code-block">
-                                    <pre><code># Run the Phase 5B validation test
-node test-phase5b-complete.js</code></pre>
+                                    <pre><code># One-command setup with full installation and testing
+npm run install:full
+
+# Or run specific test suites
+npm run test:quick         # Quick validation tests
+npm run test:advanced     # Extended feature validation
+npm test                   # Complete test suite</code></pre>
                                 </div>
-                                <p>You should see "🎉 PHASE 5B ENTERPRISE PLATFORM COMPLETE!" if everything is working correctly.</p>
+                                <p>Test results should show success across unit, integration, and end-to-end test categories.</p>
                             </div>
                         </div>
                     </div>
@@ -117,8 +140,34 @@ node test-phase5b-complete.js</code></pre>
                         <pre><code>{
   "mcpServers": {
     "insite": {
+      "command": "npx",
+      "args": ["insite-mcp"]
+    }
+  }
+}</code></pre>
+                    </div>
+                    
+                    <p><strong>Alternative configurations:</strong></p>
+                    
+                    <p>Global installation:</p>
+                    <div class="code-block">
+                        <pre><code>{
+  "mcpServers": {
+    "insite": {
+      "command": "insite-mcp"
+    }
+  }
+}</code></pre>
+                    </div>
+                    
+                    <p>Development/local build:</p>
+                    <div class="code-block">
+                        <pre><code>{
+  "mcpServers": {
+    "insite": {
       "command": "node",
-      "args": ["/path/to/insite/dist/server.js"],
+      "args": ["./dist/server.js"],
+      "cwd": "/path/to/insite",
       "env": {
         "NODE_ENV": "production"
       }
@@ -240,8 +289,8 @@ node test-phase5b-complete.js</code></pre>
 }</code></pre>
                     </div>
 
-                    <h3>Advanced Features</h3>
-                    <p>Explore enterprise features like performance monitoring and visual testing:</p>
+                    <h3>Additional Features</h3>
+                    <p>Use performance monitoring and visual testing features:</p>
                     
                     <div class="code-block">
                         <pre><code>// Start performance monitoring
@@ -283,25 +332,19 @@ node test-phase5b-complete.js</code></pre>
                 <h2>Next Steps</h2>
                 <div class="next-steps-grid">
                     <div class="next-step-card">
-                        <h3>📚 Explore the API</h3>
-                        <p>Learn about all 50 available tools and their parameters</p>
+                        <h3>Explore the API</h3>
+                        <p>Learn about all available tools and their parameters</p>
                         <a href="api-reference.html" class="btn btn-primary">API Reference</a>
                     </div>
                     
                     <div class="next-step-card">
-                        <h3>💡 See Examples</h3>
+                        <h3>See Examples</h3>
                         <p>Check out practical examples and common automation patterns</p>
                         <a href="examples.html" class="btn btn-primary">View Examples</a>
                     </div>
                     
                     <div class="next-step-card">
-                        <h3>🚀 Enterprise Deployment</h3>
-                        <p>Deploy InSite in production environments with advanced configuration</p>
-                        <a href="deployment.html" class="btn btn-primary">Deployment Guide</a>
-                    </div>
-                    
-                    <div class="next-step-card">
-                        <h3>🔧 Testing Integration</h3>
+                        <h3>Testing Integration</h3>
                         <p>Integrate with Playwright Test, Jest, Mocha, and other testing frameworks</p>
                         <a href="testing-integration.html" class="btn btn-primary">Testing Guide</a>
                     </div>
@@ -310,47 +353,6 @@ node test-phase5b-complete.js</code></pre>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>InSite</h3>
-                    <p>Enterprise Browser Automation Platform</p>
-                    <p>50 tools • 13 categories • 100% enterprise ready</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Documentation</h4>
-                    <ul>
-                        <li><a href="getting-started.html">Getting Started</a></li>
-                        <li><a href="api-reference.html">API Reference</a></li>
-                        <li><a href="examples.html">Examples</a></li>
-                        <li><a href="deployment.html">Deployment Guide</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="https://github.com/your-org/insite">GitHub</a></li>
-                        <li><a href="https://github.com/your-org/insite/issues">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Enterprise</h4>
-                    <ul>
-                        <li><a href="enterprise.html">Enterprise Features</a></li>
-                        <li><a href="security.html">Security</a></li>
-                        <li><a href="compliance.html">Compliance</a></li>
-                        <li><a href="support.html">Enterprise Support</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="assets/script.js"></script>
     

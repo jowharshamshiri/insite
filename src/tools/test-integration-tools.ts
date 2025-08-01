@@ -1,6 +1,6 @@
 /**
  * Testing Framework Integration Tools for Browser MCP Server
- * Advanced enterprise testing framework integration capabilities
+ * Advanced testing framework integration capabilities
  */
 
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';

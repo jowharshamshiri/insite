@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Reference - InSite</title>
-    <meta name="description" content="Complete API reference for all 50 InSite tools">
+    <meta name="description" content="Complete API reference for all InSite tools across multiple functional categories">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
@@ -13,14 +13,13 @@
         <nav class="nav">
             <div class="nav-brand">
                 <h1><a href="index.html" style="text-decoration: none; color: inherit;">InSite</a></h1>
-                <span class="tagline">Enterprise Browser Automation</span>
+                <span class="tagline">Browser Automation</span>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="getting-started.html">Get Started</a></li>
                 <li><a href="api-reference.html">API Reference</a></li>
                 <li><a href="examples.html">Examples</a></li>
-                <li><a href="deployment.html">Deployment</a></li>
             </ul>
         </nav>
     </header>
@@ -31,19 +30,19 @@
                 <nav class="api-nav">
                     <h3>Tool Categories</h3>
                     <ul>
-                        <li><a href="#navigation">Navigation Tools (5)</a></li>
-                        <li><a href="#visual">Visual Tools (2)</a></li>
-                        <li><a href="#dom">DOM Analysis (2)</a></li>
-                        <li><a href="#interaction">Interaction Tools (7)</a></li>
-                        <li><a href="#javascript">JavaScript Execution (3)</a></li>
+                        <li><a href="#page-control">Page Control (6)</a></li>
+                        <li><a href="#element-interaction">Element Interaction (5)</a></li>
+                        <li><a href="#content-extraction">Content Extraction (4)</a></li>
+                        <li><a href="#javascript-execution">JavaScript Execution (3)</a></li>
+                        <li><a href="#synchronization">Synchronization (2)</a></li>
                         <li><a href="#console-network">Console & Network (4)</a></li>
-                        <li><a href="#configuration">Configuration (3)</a></li>
-                        <li><a href="#browser-management">Browser Management (4)</a></li>
-                        <li><a href="#debugging">Advanced Debugging (4)</a></li>
-                        <li><a href="#security">Security & Validation (3)</a></li>
-                        <li><a href="#monitoring">Monitoring & Analytics (4)</a></li>
+                        <li><a href="#browser-configuration">Browser Configuration (3)</a></li>
+                        <li><a href="#multi-browser">Multi-Browser (3)</a></li>
+                        <li><a href="#debugging">Debugging (4)</a></li>
+                        <li><a href="#security">Security (3)</a></li>
+                        <li><a href="#monitoring">Monitoring (4)</a></li>
                         <li><a href="#visual-testing">Visual Testing (5)</a></li>
-                        <li><a href="#testing-integration">Testing Integration (4)</a></li>
+                        <li><a href="#test-integration">Test Integration (4)</a></li>
                     </ul>
                     
                     <h3>Reference</h3>
@@ -59,33 +58,19 @@
                 <section class="api-intro">
                     <h1>API Reference</h1>
                     <p class="api-description">
-                        Complete reference for all 50 InSite tools across 13 categories. 
-                        Each tool follows the MCP (Model Context Protocol) specification.
+                        Complete reference for all InSite tools across multiple functional categories. 
+                        All tools follow the MCP (Model Context Protocol) specification for seamless integration.
                     </p>
-                    
-                    <div class="api-stats">
-                        <div class="api-stat">
-                            <span class="stat-number">50</span>
-                            <span class="stat-label">Total Tools</span>
-                        </div>
-                        <div class="api-stat">
-                            <span class="stat-number">13</span>
-                            <span class="stat-label">Categories</span>
-                        </div>
-                        <div class="api-stat">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">MCP Compliant</span>
-                        </div>
-                    </div>
                 </section>
 
-                <section id="navigation" class="api-section">
-                    <h2>Navigation Tools</h2>
-                    <p>Core page navigation and browser history management (5 tools)</p>
+                <!-- Page Control Category -->
+                <section id="page-control" class="api-section">
+                    <h2>Page Control</h2>
+                    <p>Core page navigation, browser history management, and lifecycle control (6 tools)</p>
                     
                     <div class="tool">
                         <h3>load_page</h3>
-                        <p>Navigate to a URL and wait for page load completion.</p>
+                        <p>Navigate to a URL and wait for page load completion with configurable wait conditions.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
@@ -105,11 +90,23 @@
   }
 }</code></pre>
                         </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "url": "https://example.com",
+    "title": "Example Domain",
+    "loadTime": 1250
+  }
+}</code></pre>
+                        </div>
                     </div>
                     
                     <div class="tool">
                         <h3>go_back</h3>
-                        <p>Navigate backward in browser history.</p>
+                        <p>Navigate backward in browser history with timeout control.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
@@ -118,11 +115,21 @@
                                 <li><code>waitUntil</code> (string, optional) - Wait condition (default: "load")</li>
                             </ul>
                         </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "go_back",
+  "arguments": {
+    "timeout": 10000
+  }
+}</code></pre>
+                        </div>
                     </div>
                     
                     <div class="tool">
                         <h3>go_forward</h3>
-                        <p>Navigate forward in browser history.</p>
+                        <p>Navigate forward in browser history with timeout control.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
@@ -135,7 +142,7 @@
                     
                     <div class="tool">
                         <h3>reload_page</h3>
-                        <p>Reload the current page with optional cache control.</p>
+                        <p>Reload the current page with optional cache control and wait conditions.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
@@ -149,22 +156,240 @@
                     
                     <div class="tool">
                         <h3>get_current_url</h3>
-                        <p>Retrieve the current page URL.</p>
+                        <p>Retrieve the current page URL including any fragments or query parameters.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <p>None</p>
                         </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "url": "https://example.com/page?param=value#section"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>close_browser</h3>
+                        <p>Close the browser instance and cleanup all associated resources.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                        
+                        <div class="tool-notes">
+                            <h4>Notes</h4>
+                            <p>Always call this tool when finished to prevent memory leaks in long-running processes.</p>
+                        </div>
                     </div>
                 </section>
 
-                <section id="visual" class="api-section">
-                    <h2>Visual Tools</h2>
-                    <p>Screenshot capture and viewport management (2 tools)</p>
+                <!-- Element Interaction Category -->
+                <section id="element-interaction" class="api-section">
+                    <h2>Element Interaction</h2>
+                    <p>User interaction simulation and element manipulation capabilities (5 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>click_element</h3>
+                        <p>Click elements using CSS selectors with timeout and actionability checks.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for target element</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout in milliseconds (default: 30000)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "click_element",
+  "arguments": {
+    "selector": "button#submit",
+    "timeout": 10000
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-notes">
+                            <h4>Use Cases</h4>
+                            <p>Form submissions, navigation buttons, modal triggers, dropdown selections</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>type_text</h3>
+                        <p>Type text into input elements with realistic timing and optional clearing.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for input element</li>
+                                <li><code>text</code> (string, required) - Text to type</li>
+                                <li><code>delay</code> (number, optional) - Keystroke delay in milliseconds (default: 0)</li>
+                                <li><code>clear</code> (boolean, optional) - Clear existing text first (default: true)</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "type_text",
+  "arguments": {
+    "selector": "input[name='username']",
+    "text": "john.doe@example.com",
+    "delay": 50,
+    "clear": true
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>hover_element</h3>
+                        <p>Trigger hover effects on elements for dropdown menus and interactive components.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for target element</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                                <li><code>force</code> (boolean, optional) - Bypass actionability checks (default: false)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-notes">
+                            <h4>Use Cases</h4>
+                            <p>Dropdown menu activation, tooltip display, hover state testing</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>scroll_page</h3>
+                        <p>Scroll the page or specific elements in any direction with pixel precision.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>direction</code> (string, optional) - "up", "down", "left", "right" (default: "down")</li>
+                                <li><code>amount</code> (number, optional) - Scroll distance in pixels (default: 500)</li>
+                                <li><code>selector</code> (string, optional) - Element selector to scroll (defaults to page)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "scroll_page",
+  "arguments": {
+    "direction": "down",
+    "amount": 1000,
+    "selector": ".scrollable-container"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>press_key</h3>
+                        <p>Press keyboard keys and key combinations with optional element focus.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>key</code> (string, required) - Key to press (e.g., "Enter", "Tab", "Control+a")</li>
+                                <li><code>selector</code> (string, optional) - Element to focus before key press</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "press_key",
+  "arguments": {
+    "key": "Control+a",
+    "selector": "textarea#content"
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-notes">
+                            <h4>Supported Keys</h4>
+                            <p>Enter, Tab, Escape, ArrowUp/Down/Left/Right, Space, Control+[key], Alt+[key], Shift+[key]</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Content Extraction Category -->
+                <section id="content-extraction" class="api-section">
+                    <h2>Content Extraction</h2>
+                    <p>DOM analysis, page content extraction, and visual capture capabilities (4 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>get_dom</h3>
+                        <p>Extract page DOM structure and content with optional CSS selector filtering.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, optional) - CSS selector to filter DOM content</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "get_dom",
+  "arguments": {
+    "selector": ".main-content"
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "html": "&lt;div class='main-content'&gt;...&lt;/div&gt;",
+    "elementCount": 42
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>get_page_title</h3>
+                        <p>Retrieve the current page title from the document head.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "title": "Example Page - My Website"
+  }
+}</code></pre>
+                        </div>
+                    </div>
                     
                     <div class="tool">
                         <h3>screenshot</h3>
-                        <p>Capture page screenshots with quality control.</p>
+                        <p>Capture page screenshots with quality control and full-page support.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
@@ -184,120 +409,176 @@
   }
 }</code></pre>
                         </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "screenshot": "base64-encoded-image-data",
+    "format": "png",
+    "width": 1920,
+    "height": 1080
+  }
+}</code></pre>
+                        </div>
                     </div>
                     
                     <div class="tool">
                         <h3>get_viewport_info</h3>
-                        <p>Get current viewport dimensions and device pixel ratio.</p>
+                        <p>Get current viewport dimensions and device pixel ratio information.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <p>None</p>
                         </div>
                         
-                        <div class="tool-example">
-                            <h4>Returns</h4>
+                        <div class="tool-response">
+                            <h4>Response</h4>
                             <pre><code>{
-  "width": 1280,
-  "height": 720,
-  "devicePixelRatio": 2.0
+  "success": true,
+  "data": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 2.0
+  }
 }</code></pre>
                         </div>
                     </div>
                 </section>
 
-                <section id="interaction" class="api-section">
-                    <h2>Interaction Tools</h2>
-                    <p>User interaction simulation and element manipulation (7 tools)</p>
+                <!-- JavaScript Execution Category -->
+                <section id="javascript-execution" class="api-section">
+                    <h2>JavaScript Execution</h2>
+                    <p>JavaScript code execution and dynamic analysis capabilities (3 tools)</p>
                     
                     <div class="tool">
-                        <h3>click_element</h3>
-                        <p>Click elements using CSS selectors.</p>
+                        <h3>evaluate_js</h3>
+                        <p>Execute JavaScript code in the page context with return value capture.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>code</code> (string, required) - JavaScript code to execute</li>
+                                <li><code>timeout</code> (number, optional) - Execution timeout in milliseconds (default: 30000)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "evaluate_js",
+  "arguments": {
+    "code": "document.querySelectorAll('a').length"
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "result": 25,
+    "type": "number"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>evaluate_js_on_element</h3>
+                        <p>Execute JavaScript code on a specific element with element context.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
                                 <li><code>selector</code> (string, required) - CSS selector for target element</li>
-                                <li><code>timeout</code> (number, optional) - Operation timeout in milliseconds (default: 30000)</li>
+                                <li><code>code</code> (string, required) - JavaScript code to execute (element available as "element" variable)</li>
+                                <li><code>timeout</code> (number, optional) - Execution timeout (default: 30000)</li>
                             </ul>
                         </div>
-                    </div>
-                    
-                    <div class="tool">
-                        <h3>type_text</h3>
-                        <p>Type text into input elements with realistic timing.</p>
                         
-                        <div class="tool-params">
-                            <h4>Parameters</h4>
-                            <ul>
-                                <li><code>selector</code> (string, required) - CSS selector for input element</li>
-                                <li><code>text</code> (string, required) - Text to type</li>
-                                <li><code>delay</code> (number, optional) - Keystroke delay in milliseconds (default: 0)</li>
-                                <li><code>clear</code> (boolean, optional) - Clear existing text first (default: true)</li>
-                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
-                            </ul>
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "evaluate_js_on_element",
+  "arguments": {
+    "selector": "button#submit",
+    "code": "element.disabled = false; return element.textContent;"
+  }
+}</code></pre>
                         </div>
                     </div>
                     
                     <div class="tool">
-                        <h3>hover_element</h3>
-                        <p>Trigger hover effects on elements.</p>
+                        <h3>get_element_info</h3>
+                        <p>Get comprehensive information about elements using JavaScript inspection.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
                                 <li><code>selector</code> (string, required) - CSS selector for target element</li>
                                 <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
-                                <li><code>force</code> (boolean, optional) - Bypass actionability checks (default: false)</li>
                             </ul>
                         </div>
-                    </div>
-                    
-                    <div class="tool">
-                        <h3>scroll_page</h3>
-                        <p>Scroll page or specific elements.</p>
                         
-                        <div class="tool-params">
-                            <h4>Parameters</h4>
-                            <ul>
-                                <li><code>direction</code> (string, optional) - "up", "down", "left", "right" (default: "down")</li>
-                                <li><code>amount</code> (number, optional) - Scroll distance in pixels (default: 500)</li>
-                                <li><code>selector</code> (string, optional) - Element selector to scroll (defaults to page)</li>
-                            </ul>
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "tagName": "BUTTON",
+    "id": "submit",
+    "className": "btn btn-primary",
+    "textContent": "Submit Form",
+    "attributes": { "type": "submit", "disabled": "false" },
+    "boundingBox": { "x": 100, "y": 200, "width": 80, "height": 32 }
+  }
+}</code></pre>
                         </div>
                     </div>
-                    
-                    <div class="tool">
-                        <h3>press_key</h3>
-                        <p>Press keyboard keys and key combinations.</p>
-                        
-                        <div class="tool-params">
-                            <h4>Parameters</h4>
-                            <ul>
-                                <li><code>key</code> (string, required) - Key to press (e.g., "Enter", "Tab", "Control+a")</li>
-                                <li><code>selector</code> (string, optional) - Element to focus before key press</li>
-                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
-                            </ul>
-                        </div>
-                    </div>
+                </section>
+
+                <!-- Synchronization Category -->
+                <section id="synchronization" class="api-section">
+                    <h2>Synchronization</h2>
+                    <p>Wait conditions and timing control for dynamic content and navigation (2 tools)</p>
                     
                     <div class="tool">
                         <h3>wait_for_element</h3>
-                        <p>Wait for element state changes.</p>
+                        <p>Wait for elements to reach specific states before proceeding with automation.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
                                 <li><code>selector</code> (string, required) - CSS selector for target element</li>
                                 <li><code>state</code> (string, optional) - "visible", "hidden", "attached", "detached" (default: "visible")</li>
-                                <li><code>timeout</code> (number, optional) - Wait timeout (default: 30000)</li>
+                                <li><code>timeout</code> (number, optional) - Wait timeout in milliseconds (default: 30000)</li>
                             </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "wait_for_element",
+  "arguments": {
+    "selector": ".loading-spinner",
+    "state": "hidden",
+    "timeout": 10000
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-notes">
+                            <h4>Use Cases</h4>
+                            <p>Waiting for dynamic content to load, modal animations to complete, AJAX responses</p>
                         </div>
                     </div>
                     
                     <div class="tool">
                         <h3>wait_for_navigation</h3>
-                        <p>Wait for page navigation completion.</p>
+                        <p>Wait for page navigation completion with configurable wait conditions.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
@@ -307,24 +588,822 @@
                                 <li><code>waitUntil</code> (string, optional) - Wait condition (default: "load")</li>
                             </ul>
                         </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "wait_for_navigation",
+  "arguments": {
+    "url": "**/dashboard",
+    "waitUntil": "networkidle"
+  }
+}</code></pre>
+                        </div>
                     </div>
                 </section>
 
-                <section id="testing-integration" class="api-section">
-                    <h2>Testing Framework Integration</h2>
-                    <p>Integration with popular testing frameworks (4 tools)</p>
+                <!-- Console & Network Category -->
+                <section id="console-network" class="api-section">
+                    <h2>Console & Network</h2>
+                    <p>Browser console monitoring and network request tracking capabilities (4 tools)</p>
                     
                     <div class="tool">
-                        <h3>playwright_test_adapter</h3>
-                        <p>Integration adapter for Playwright Test runner.</p>
+                        <h3>get_console_logs</h3>
+                        <p>Retrieve browser console messages with level filtering and pagination.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
-                                <li><code>action</code> (string, required) - "initialize", "configure", "run_test", "get_results", "cleanup"</li>
+                                <li><code>level</code> (string, optional) - Filter by level: "log", "info", "warn", "error", "debug"</li>
+                                <li><code>limit</code> (number, optional) - Maximum number of logs to return (default: 100)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "get_console_logs",
+  "arguments": {
+    "level": "error",
+    "limit": 50
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "logs": [
+      {
+        "level": "error",
+        "message": "TypeError: Cannot read property 'value' of null",
+        "timestamp": "2025-08-01T10:30:00.000Z",
+        "url": "https://example.com/script.js",
+        "lineNumber": 42
+      }
+    ],
+    "totalCount": 3
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>clear_console_logs</h3>
+                        <p>Clear stored console logs to start fresh monitoring.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>get_network_logs</h3>
+                        <p>Retrieve network request logs with comprehensive filtering options.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>method</code> (string, optional) - Filter by HTTP method: "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"</li>
+                                <li><code>status</code> (number, optional) - Filter by status code</li>
+                                <li><code>url_pattern</code> (string, optional) - Filter by URL pattern (regex)</li>
+                                <li><code>limit</code> (number, optional) - Maximum number of requests to return (default: 100)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "get_network_logs",
+  "arguments": {
+    "method": "POST",
+    "status": 404,
+    "url_pattern": ".*api.*"
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "requests": [
+      {
+        "method": "POST",
+        "url": "https://api.example.com/users",
+        "status": 404,
+        "statusText": "Not Found",
+        "responseTime": 250,
+        "requestHeaders": { "Content-Type": "application/json" },
+        "responseHeaders": { "Content-Length": "25" }
+      }
+    ],
+    "totalCount": 1
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>clear_network_logs</h3>
+                        <p>Clear stored network request logs for fresh monitoring sessions.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Browser Configuration Category -->
+                <section id="browser-configuration" class="api-section">
+                    <h2>Browser Configuration</h2>
+                    <p>Browser settings and environment configuration tools (3 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>set_viewport_size</h3>
+                        <p>Configure browser viewport dimensions for responsive testing.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>width</code> (number, required) - Viewport width in pixels (100-4096)</li>
+                                <li><code>height</code> (number, required) - Viewport height in pixels (100-4096)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "set_viewport_size",
+  "arguments": {
+    "width": 1920,
+    "height": 1080
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>set_user_agent</h3>
+                        <p>Set custom user agent string for browser identity simulation.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>userAgent</code> (string, required) - User agent string to set</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "set_user_agent",
+  "arguments": {
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>set_geolocation</h3>
+                        <p>Configure geolocation coordinates for location-based testing.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>latitude</code> (number, required) - Latitude coordinate (-90 to 90)</li>
+                                <li><code>longitude</code> (number, required) - Longitude coordinate (-180 to 180)</li>
+                                <li><code>accuracy</code> (number, optional) - Location accuracy in meters (default: 100)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "set_geolocation",
+  "arguments": {
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "accuracy": 50
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Multi-Browser Category -->
+                <section id="multi-browser" class="api-section">
+                    <h2>Multi-Browser</h2>
+                    <p>Browser engine management and cross-browser automation (3 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>switch_browser</h3>
+                        <p>Switch between different browser engines for cross-browser testing.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>engine</code> (string, required) - Browser engine: "chromium", "firefox", "webkit"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "switch_browser",
+  "arguments": {
+    "engine": "firefox"
+  }
+}</code></pre>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "previousEngine": "chromium",
+    "currentEngine": "firefox",
+    "version": "118.0.1"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>get_browser_info</h3>
+                        <p>Get comprehensive information about the current browser engine and capabilities.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "engine": "chromium",
+    "version": "119.0.6045.105",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)...",
+    "viewport": { "width": 1280, "height": 720 },
+    "capabilities": ["headless", "screenshots", "pdf"]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>list_available_browsers</h3>
+                        <p>List all available browser engines with version information.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <p>None</p>
+                        </div>
+                        
+                        <div class="tool-response">
+                            <h4>Response</h4>
+                            <pre><code>{
+  "success": true,
+  "data": {
+    "browsers": [
+      { "engine": "chromium", "version": "119.0.6045.105", "available": true },
+      { "engine": "firefox", "version": "118.0.1", "available": true },
+      { "engine": "webkit", "version": "17.0", "available": true }
+    ]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Debugging Category -->
+                <section id="debugging" class="api-section">
+                    <h2>Debugging</h2>
+                    <p>Advanced debugging tools for element inspection and performance analysis (4 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>highlight_element</h3>
+                        <p>Visually highlight elements on the page for debugging workflows.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for element(s) to highlight</li>
+                                <li><code>style</code> (object, optional) - Highlight style configuration</li>
+                                <li><code>duration</code> (number, optional) - Highlight duration in milliseconds (default: 3000, 0 for permanent)</li>
+                                <li><code>showInfo</code> (boolean, optional) - Show element information tooltip (default: true)</li>
+                                <li><code>timeout</code> (number, optional) - Operation timeout (default: 30000)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "highlight_element",
+  "arguments": {
+    "selector": "button.submit",
+    "style": {
+      "border": "3px solid red",
+      "backgroundColor": "rgba(255,0,0,0.1)"
+    },
+    "duration": 5000
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>trace_execution</h3>
+                        <p>Enable detailed execution tracing for debugging browser operations.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>enabled</code> (boolean, optional) - Enable or disable tracing (default: true)</li>
+                                <li><code>options</code> (object, optional) - Tracing configuration options</li>
+                                <li><code>path</code> (string, optional) - Path to save trace files</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "trace_execution",
+  "arguments": {
+    "enabled": true,
+    "options": {
+      "screenshots": true,
+      "snapshots": true,
+      "network": true
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>capture_performance_timeline</h3>
+                        <p>Capture detailed browser performance timeline data for optimization analysis.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>categories</code> (array, optional) - Performance categories: "navigation", "resource", "measure", "mark", "paint", "layout", "longtask", "element"</li>
+                                <li><code>duration</code> (number, optional) - Capture duration in milliseconds (default: 0 for current state)</li>
+                                <li><code>includeMetrics</code> (boolean, optional) - Include Web Vitals metrics (default: true)</li>
+                                <li><code>format</code> (string, optional) - Output format: "json", "timeline", "summary" (default: "json")</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "capture_performance_timeline",
+  "arguments": {
+    "categories": ["navigation", "paint", "layout"],
+    "includeMetrics": true,
+    "format": "summary"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>debug_mode</h3>
+                        <p>Enable or disable comprehensive debugging mode with enhanced logging.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>enabled</code> (boolean, required) - Enable or disable debug mode</li>
+                                <li><code>level</code> (string, optional) - Debug logging level: "verbose", "info", "warn", "error" (default: "info")</li>
+                                <li><code>features</code> (object, optional) - Debug features to enable</li>
+                                <li><code>outputPath</code> (string, optional) - Path for debug output files</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "debug_mode",
+  "arguments": {
+    "enabled": true,
+    "level": "verbose",
+    "features": {
+      "consoleLogging": true,
+      "networkLogging": true,
+      "performanceMonitoring": true
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Category -->
+                <section id="security" class="api-section">
+                    <h2>Security</h2>
+                    <p>Security validation, CSP handling, and certificate management tools (3 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>handle_csp</h3>
+                        <p>Configure Content Security Policy handling and compliance checking.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - CSP action: "bypass", "enforce", "report", "check" (default: "check")</li>
+                                <li><code>policies</code> (array, optional) - CSP policies to check or enforce</li>
+                                <li><code>bypassUnsafe</code> (boolean, optional) - Allow bypassing unsafe CSP directives (default: false)</li>
+                                <li><code>reportOnly</code> (boolean, optional) - Enable CSP report-only mode (default: false)</li>
+                                <li><code>violationCallback</code> (string, optional) - JavaScript callback for CSP violations</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "handle_csp",
+  "arguments": {
+    "action": "check",
+    "policies": [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline'"
+    ]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>manage_certificates</h3>
+                        <p>Certificate validation and custom certificate handling for HTTPS sites.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - Certificate action: "validate", "ignore", "add_trusted", "check_chain", "get_info" (default: "validate")</li>
+                                <li><code>url</code> (string, optional) - URL to check certificate for</li>
+                                <li><code>certificatePath</code> (string, optional) - Path to certificate file</li>
+                                <li><code>ignoreHTTPSErrors</code> (boolean, optional) - Ignore HTTPS certificate errors (default: false)</li>
+                                <li><code>checkExpiry</code> (boolean, optional) - Check certificate expiry date (default: true)</li>
+                                <li><code>validateChain</code> (boolean, optional) - Validate certificate chain (default: true)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "manage_certificates",
+  "arguments": {
+    "action": "validate",
+    "url": "https://example.com",
+    "checkExpiry": true
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>validate_security</h3>
+                        <p>Comprehensive security validation and vulnerability scanning for web pages.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>checks</code> (array, optional) - Security checks: "https_usage", "mixed_content", "insecure_forms", "csp_presence", "hsts_headers", "xss_protection", "clickjacking_protection", "content_type_options", "referrer_policy", "permissions_policy"</li>
+                                <li><code>level</code> (string, optional) - Security validation level: "basic", "intermediate", "advanced" (default: "intermediate")</li>
+                                <li><code>includeHeaders</code> (boolean, optional) - Include security header analysis (default: true)</li>
+                                <li><code>scanContent</code> (boolean, optional) - Scan page content for security issues (default: true)</li>
+                                <li><code>reportFormat</code> (string, optional) - Report format: "summary", "detailed", "json" (default: "detailed")</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "validate_security",
+  "arguments": {
+    "checks": ["https_usage", "csp_presence", "hsts_headers"],
+    "level": "advanced",
+    "reportFormat": "detailed"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Monitoring Category -->
+                <section id="monitoring" class="api-section">
+                    <h2>Monitoring</h2>
+                    <p>Usage analytics, error tracking, performance monitoring, and session analysis (4 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>usage_analytics</h3>
+                        <p>Track and report browser automation usage patterns and statistics.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - Analytics action: "start_tracking", "stop_tracking", "get_report", "reset_data", "configure" (default: "get_report")</li>
+                                <li><code>trackingConfig</code> (object, optional) - Configuration for usage tracking</li>
+                                <li><code>reportFormat</code> (string, optional) - Report format: "summary", "detailed", "json", "csv" (default: "summary")</li>
+                                <li><code>timeRange</code> (object, optional) - Time range for analytics report</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "usage_analytics",
+  "arguments": {
+    "action": "get_report",
+    "reportFormat": "detailed",
+    "timeRange": { "preset": "last_week" }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>error_tracking</h3>
+                        <p>Advanced error tracking, categorization, and alerting system.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - Error tracking action: "start_monitoring", "stop_monitoring", "get_errors", "clear_errors", "configure_alerts" (default: "get_errors")</li>
+                                <li><code>errorTypes</code> (array, optional) - Error types to track: "javascript_errors", "network_errors", "console_errors", "playwright_errors", "timeout_errors", "element_not_found", "security_errors"</li>
+                                <li><code>alertConfig</code> (object, optional) - Alert configuration</li>
+                                <li><code>filters</code> (object, optional) - Error filtering options</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "error_tracking",
+  "arguments": {
+    "action": "get_errors",
+    "errorTypes": ["javascript_errors", "network_errors"],
+    "filters": { "severity": "error", "limit": 20 }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>performance_monitoring</h3>
+                        <p>Real-time performance monitoring, profiling, and optimization insights.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - Performance action: "start_monitoring", "stop_monitoring", "get_metrics", "analyze_performance", "set_thresholds" (default: "get_metrics")</li>
+                                <li><code>metrics</code> (array, optional) - Performance metrics: "page_load_time", "first_contentful_paint", "largest_contentful_paint", "cumulative_layout_shift", "first_input_delay", "memory_usage", "cpu_usage", "network_timing", "resource_sizes", "dom_metrics"</li>
+                                <li><code>thresholds</code> (object, optional) - Performance thresholds for alerting</li>
+                                <li><code>samplingInterval</code> (number, optional) - Sampling interval in milliseconds (default: 1000)</li>
+                                <li><code>reportFormat</code> (string, optional) - Report format: "realtime", "summary", "detailed", "chart_data" (default: "summary")</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "performance_monitoring",
+  "arguments": {
+    "action": "get_metrics",
+    "metrics": ["page_load_time", "first_contentful_paint", "largest_contentful_paint"],
+    "reportFormat": "detailed"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>session_analytics</h3>
+                        <p>Session-based analytics, user journey tracking, and workflow optimization.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - Session action: "start_session", "end_session", "get_session_data", "analyze_journey", "export_sessions" (default: "get_session_data")</li>
+                                <li><code>sessionConfig</code> (object, optional) - Session tracking configuration</li>
+                                <li><code>analysisType</code> (string, optional) - Analysis type: "funnel_analysis", "path_analysis", "interaction_heatmap", "time_analysis", "conversion_analysis" (default: "path_analysis")</li>
+                                <li><code>filters</code> (object, optional) - Session filtering options</li>
+                                <li><code>exportFormat</code> (string, optional) - Export format: "json", "csv", "timeline", "report" (default: "json")</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "session_analytics",
+  "arguments": {
+    "action": "analyze_journey",
+    "analysisType": "funnel_analysis",
+    "exportFormat": "report"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Visual Testing Category -->
+                <section id="visual-testing" class="api-section">
+                    <h2>Visual Testing</h2>
+                    <p>Screenshot comparison, visual regression testing, and cross-browser visual validation (5 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>screenshot_compare</h3>
+                        <p>Compare screenshots with diff generation for visual testing workflows.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>baselineImage</code> (string, required) - Path to baseline/reference image file</li>
+                                <li><code>currentImage</code> (string, optional) - Path to current screenshot (will take new if not provided)</li>
+                                <li><code>diffOutputPath</code> (string, optional) - Path to save diff image</li>
+                                <li><code>threshold</code> (number, optional) - Difference threshold 0-1 (default: 0.1)</li>
+                                <li><code>includeAntiAliasing</code> (boolean, optional) - Include anti-aliasing differences (default: false)</li>
+                                <li><code>highlightColor</code> (string, optional) - Color for highlighting differences (default: "#ff0000")</li>
+                                <li><code>generateReport</code> (boolean, optional) - Generate detailed comparison report (default: true)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "screenshot_compare",
+  "arguments": {
+    "baselineImage": "./baselines/homepage.png",
+    "threshold": 0.05,
+    "generateReport": true
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>visual_regression_testing</h3>
+                        <p>Automated visual regression testing framework with baseline management.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>testSuite</code> (string, required) - Name of the visual test suite</li>
+                                <li><code>baselineDirectory</code> (string, optional) - Directory containing baseline images</li>
+                                <li><code>testCases</code> (array, required) - Visual test cases to execute</li>
+                                <li><code>threshold</code> (number, optional) - Global difference threshold (default: 0.1)</li>
+                                <li><code>updateBaselines</code> (boolean, optional) - Update baseline images (default: false)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "visual_regression_testing",
+  "arguments": {
+    "testSuite": "homepage-suite",
+    "testCases": [
+      {
+        "name": "homepage-desktop",
+        "url": "https://example.com",
+        "viewport": { "width": 1920, "height": 1080 }
+      }
+    ]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>cross_browser_visual_validation</h3>
+                        <p>Validate visual consistency across different browser engines.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>url</code> (string, required) - URL to test across browsers</li>
+                                <li><code>browsers</code> (array, optional) - Browser engines: "chromium", "firefox", "webkit" (default: all)</li>
+                                <li><code>viewports</code> (array, optional) - Viewport sizes to test</li>
+                                <li><code>elements</code> (array, optional) - Specific elements to compare</li>
+                                <li><code>threshold</code> (number, optional) - Difference threshold (default: 0.05)</li>
+                                <li><code>outputDirectory</code> (string, optional) - Directory to save results</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "cross_browser_visual_validation",
+  "arguments": {
+    "url": "https://example.com",
+    "browsers": ["chromium", "firefox"],
+    "viewports": [
+      { "width": 1920, "height": 1080, "name": "desktop" },
+      { "width": 768, "height": 1024, "name": "tablet" }
+    ]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>element_screenshot_compare</h3>
+                        <p>Compare specific elements across different states or versions.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>selector</code> (string, required) - CSS selector for the element to compare</li>
+                                <li><code>baselineImage</code> (string, optional) - Path to baseline element image</li>
+                                <li><code>states</code> (array, optional) - Different states to capture and compare</li>
+                                <li><code>includeMargin</code> (number, optional) - Include margin around element in pixels (default: 0)</li>
+                                <li><code>threshold</code> (number, optional) - Comparison threshold (default: 0.1)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "element_screenshot_compare",
+  "arguments": {
+    "selector": "button.primary",
+    "states": [
+      {
+        "name": "hover",
+        "actions": [{ "type": "hover", "selector": "button.primary" }]
+      }
+    ]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tool">
+                        <h3>visual_test_reporting</h3>
+                        <p>Generate comprehensive visual test reports with image galleries.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>reportName</code> (string, required) - Name of the test report</li>
+                                <li><code>testResults</code> (array, required) - Test results to include in report</li>
+                                <li><code>outputPath</code> (string, optional) - Path to save the report</li>
+                                <li><code>format</code> (string, optional) - Report format: "html", "json", "junit" (default: "html")</li>
+                                <li><code>includeMetadata</code> (boolean, optional) - Include test metadata (default: true)</li>
+                                <li><code>generateGallery</code> (boolean, optional) - Generate image comparison gallery (default: true)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "visual_test_reporting",
+  "arguments": {
+    "reportName": "Visual Regression Report",
+    "testResults": [
+      {
+        "testName": "homepage-test",
+        "status": "pass",
+        "difference": 0.02,
+        "threshold": 0.05
+      }
+    ],
+    "format": "html"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test Integration Category -->
+                <section id="test-integration" class="api-section">
+                    <h2>Test Integration</h2>
+                    <p>Testing framework integration and advanced test reporting capabilities (4 tools)</p>
+                    
+                    <div class="tool">
+                        <h3>playwright_test_adapter</h3>
+                        <p>Integration adapter for Playwright Test runner with advanced configuration and reporting.</p>
+                        
+                        <div class="tool-params">
+                            <h4>Parameters</h4>
+                            <ul>
+                                <li><code>action</code> (string, required) - Adapter action: "initialize", "configure", "run_test", "get_results", "cleanup"</li>
                                 <li><code>config</code> (object, optional) - Playwright Test configuration</li>
-                                <li><code>testPath</code> (string, optional) - Specific test file or pattern</li>
-                                <li><code>outputDir</code> (string, optional) - Output directory for reports</li>
+                                <li><code>testPath</code> (string, optional) - Specific test file or pattern to run</li>
+                                <li><code>reportFormat</code> (string, optional) - Test report format: "html", "json", "junit", "list", "dot" (default: "html")</li>
+                                <li><code>outputDir</code> (string, optional) - Output directory for reports (default: "./test-results")</li>
                             </ul>
                         </div>
                         
@@ -335,12 +1414,12 @@
   "arguments": {
     "action": "configure",
     "config": {
-      "testDir": "./tests",
+      "testDir": "./tests/e2e",
       "workers": 2,
       "retries": 1,
       "projects": [
-        {"name": "chromium", "browser": "chromium"},
-        {"name": "firefox", "browser": "firefox"}
+        { "name": "chromium", "browser": "chromium" },
+        { "name": "firefox", "browser": "firefox" }
       ]
     }
   }
@@ -350,54 +1429,118 @@
                     
                     <div class="tool">
                         <h3>jest_adapter</h3>
-                        <p>Integration adapter for Jest testing framework.</p>
+                        <p>Integration adapter for Jest testing framework with browser automation capabilities.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
-                                <li><code>action</code> (string, required) - "initialize", "configure", "run_test", "get_results", "watch"</li>
+                                <li><code>action</code> (string, required) - Jest adapter action: "initialize", "configure", "run_test", "get_results", "watch"</li>
                                 <li><code>config</code> (object, optional) - Jest configuration options</li>
-                                <li><code>testPath</code> (string, optional) - Test file or pattern</li>
-                                <li><code>watchMode</code> (boolean, optional) - Enable watch mode</li>
+                                <li><code>testPath</code> (string, optional) - Specific test file or pattern to run</li>
+                                <li><code>watchMode</code> (boolean, optional) - Enable watch mode for continuous testing (default: false)</li>
+                                <li><code>bail</code> (number, optional) - Stop running tests after n failures (default: 0)</li>
+                                <li><code>verbose</code> (boolean, optional) - Display individual test results (default: true)</li>
                             </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "jest_adapter",
+  "arguments": {
+    "action": "run_test",
+    "config": {
+      "testEnvironment": "playwright",
+      "collectCoverage": true,
+      "maxWorkers": 2
+    },
+    "testPath": "**/*.test.js"
+  }
+}</code></pre>
                         </div>
                     </div>
                     
                     <div class="tool">
                         <h3>mocha_adapter</h3>
-                        <p>Integration adapter for Mocha testing framework.</p>
+                        <p>Integration adapter for Mocha testing framework with browser automation hooks.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
-                                <li><code>action</code> (string, required) - "initialize", "configure", "run_test", "get_results", "watch"</li>
+                                <li><code>action</code> (string, required) - Mocha adapter action: "initialize", "configure", "run_test", "get_results", "watch"</li>
                                 <li><code>config</code> (object, optional) - Mocha configuration options</li>
-                                <li><code>testPath</code> (string, optional) - Test specification</li>
-                                <li><code>watch</code> (boolean, optional) - Enable watch mode</li>
+                                <li><code>testPath</code> (string, optional) - Specific test file or pattern to run</li>
+                                <li><code>bail</code> (boolean, optional) - Bail after first test failure (default: false)</li>
+                                <li><code>watch</code> (boolean, optional) - Watch files for changes (default: false)</li>
+                                <li><code>require</code> (array, optional) - Modules to require before running tests</li>
                             </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "mocha_adapter",
+  "arguments": {
+    "action": "configure",
+    "config": {
+      "reporter": "spec",
+      "timeout": 30000,
+      "parallel": true,
+      "jobs": 2
+    }
+  }
+}</code></pre>
                         </div>
                     </div>
                     
                     <div class="tool">
                         <h3>test_reporter</h3>
-                        <p>Advanced test reporting and result aggregation.</p>
+                        <p>Advanced test reporting and result aggregation with multi-format output and analytics.</p>
                         
                         <div class="tool-params">
                             <h4>Parameters</h4>
                             <ul>
-                                <li><code>action</code> (string, required) - "generate_report", "aggregate_results", "export_data", "get_analytics", "compare_runs"</li>
+                                <li><code>action</code> (string, required) - Reporter action: "generate_report", "aggregate_results", "export_data", "get_analytics", "compare_runs"</li>
                                 <li><code>sources</code> (array, optional) - Test result sources to aggregate</li>
-                                <li><code>outputFormat</code> (string, optional) - Report format: "html", "json", "pdf", "xml", "csv"</li>
+                                <li><code>outputFormat</code> (string, optional) - Output format: "html", "json", "pdf", "xml", "csv", "junit" (default: "html")</li>
+                                <li><code>outputPath</code> (string, optional) - Output path for generated report (default: "./test-reports")</li>
+                                <li><code>includeScreenshots</code> (boolean, optional) - Include screenshots in report (default: true)</li>
+                                <li><code>includeVideos</code> (boolean, optional) - Include videos in report (default: false)</li>
                                 <li><code>analytics</code> (object, optional) - Analytics configuration</li>
-                                <li><code>compareWith</code> (string, optional) - Previous results for comparison</li>
+                                <li><code>filters</code> (object, optional) - Report filtering options</li>
+                                <li><code>compareWith</code> (string, optional) - Path to previous test results for comparison</li>
+                                <li><code>threshold</code> (object, optional) - Quality gate thresholds</li>
                             </ul>
+                        </div>
+                        
+                        <div class="tool-example">
+                            <h4>Example</h4>
+                            <pre><code>{
+  "name": "test_reporter",
+  "arguments": {
+    "action": "generate_report",
+    "sources": [
+      {
+        "framework": "playwright",
+        "resultsPath": "./test-results/results.json",
+        "format": "json"
+      }
+    ],
+    "outputFormat": "html",
+    "analytics": {
+      "trends": true,
+      "performance": true,
+      "flakiness": true
+    }
+  }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
                 <section id="response-format" class="api-section">
                     <h2>Response Format</h2>
-                    <p>All tools return responses in the following standardized format:</p>
+                    <p>All InSite tools return responses in the following standardized format following MCP protocol:</p>
                     
                     <div class="tool-example">
                         <pre><code>{
@@ -407,8 +1550,15 @@
   },
   "error": {
     "type": "ERROR_TYPE",
-    "message": "Error description",
-    "details": {}
+    "message": "Human-readable error description",
+    "details": {
+      // Additional error context
+    }
+  },
+  "metadata": {
+    "timestamp": "2025-08-01T10:30:00.000Z",
+    "executionTime": 1250,
+    "toolVersion": "1.2.0"
   }
 }</code></pre>
                     </div>
@@ -416,47 +1566,57 @@
 
                 <section id="error-types" class="api-section">
                     <h2>Error Types</h2>
-                    <p>InSite uses the following standardized error types:</p>
+                    <p>InSite uses standardized error types for consistent error handling across all tools:</p>
                     
                     <div class="error-types">
                         <div class="error-type">
                             <h4>BROWSER_NOT_INITIALIZED</h4>
-                            <p>Browser not started or initialization failed</p>
+                            <p>Browser instance not started or initialization failed. Call load_page or switch_browser first.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>ELEMENT_NOT_FOUND</h4>
-                            <p>CSS selector matched no elements on the page</p>
+                            <p>CSS selector matched no elements on the page. Verify selector syntax and element presence.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>TIMEOUT_ERROR</h4>
-                            <p>Operation exceeded the specified timeout duration</p>
+                            <p>Operation exceeded the specified timeout duration. Consider increasing timeout or checking network conditions.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>NAVIGATION_FAILED</h4>
-                            <p>Page navigation was unsuccessful</p>
+                            <p>Page navigation was unsuccessful due to network issues, invalid URL, or server errors.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>JAVASCRIPT_ERROR</h4>
-                            <p>JavaScript execution failed or encountered an error</p>
+                            <p>JavaScript execution failed or encountered an error. Check code syntax and page context.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>NETWORK_ERROR</h4>
-                            <p>Network request failed or timed out</p>
+                            <p>Network request failed or timed out. Verify connectivity and server availability.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>INVALID_URL</h4>
-                            <p>URL format is invalid or malformed</p>
+                            <p>URL format is invalid or malformed. Ensure proper protocol and domain format.</p>
                         </div>
                         
                         <div class="error-type">
                             <h4>INVALID_SELECTOR</h4>
-                            <p>CSS selector syntax is invalid</p>
+                            <p>CSS selector syntax is invalid. Verify selector format and escaping.</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>SECURITY_ERROR</h4>
+                            <p>Security policy violation or certificate error. Check CSP settings and certificate validity.</p>
+                        </div>
+                        
+                        <div class="error-type">
+                            <h4>CONFIGURATION_ERROR</h4>
+                            <p>Invalid configuration parameters or settings. Verify parameter types and values.</p>
                         </div>
                     </div>
                 </section>
@@ -467,27 +1627,42 @@
                     <div class="best-practices">
                         <div class="practice">
                             <h4>1. Error Handling</h4>
-                            <p>Always check the <code>success</code> field in responses and handle errors appropriately with retry logic where needed.</p>
+                            <p>Always check the <code>success</code> field in responses and implement proper error handling with retry logic for transient failures.</p>
                         </div>
                         
                         <div class="practice">
-                            <h4>2. Timeouts</h4>
-                            <p>Set appropriate timeouts based on expected page load times and network conditions. Default timeouts may be too short for slow networks.</p>
+                            <h4>2. Timeout Management</h4>
+                            <p>Set appropriate timeouts based on expected page load times and network conditions. Default 30-second timeouts may be insufficient for slow networks or complex pages.</p>
                         </div>
                         
                         <div class="practice">
-                            <h4>3. Element Waiting</h4>
-                            <p>Use <code>wait_for_element</code> before interacting with dynamic content to ensure elements are ready for interaction.</p>
+                            <h4>3. Element Synchronization</h4>
+                            <p>Use <code>wait_for_element</code> before interacting with dynamic content to ensure elements are ready. Consider using <code>networkidle</code> wait condition for SPAs.</p>
                         </div>
                         
                         <div class="practice">
                             <h4>4. Resource Management</h4>
-                            <p>Call <code>close_browser</code> when finished to clean up resources and prevent memory leaks in long-running processes.</p>
+                            <p>Always call <code>close_browser</code> when finished to clean up resources and prevent memory leaks in long-running processes.</p>
                         </div>
                         
                         <div class="practice">
-                            <h4>5. Performance</h4>
-                            <p>Use <code>networkidle</code> wait condition for SPAs, monitor console and network logs for debugging, and implement proper retry logic.</p>
+                            <h4>5. Cross-Browser Testing</h4>
+                            <p>Use <code>switch_browser</code> and visual testing tools to ensure consistent behavior across different browser engines.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>6. Performance Monitoring</h4>
+                            <p>Leverage monitoring tools to track performance metrics and identify optimization opportunities in your automation workflows.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>7. Security Validation</h4>
+                            <p>Use security tools to validate CSP compliance, certificate validity, and identify potential security vulnerabilities.</p>
+                        </div>
+                        
+                        <div class="practice">
+                            <h4>8. Visual Regression Testing</h4>
+                            <p>Implement visual testing workflows to catch UI regressions and ensure consistent user experience across releases.</p>
                         </div>
                     </div>
                 </section>
@@ -495,13 +1670,6 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="assets/script.js"></script>
     
@@ -591,6 +1759,18 @@
             text-align: center;
         }
         
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
         .api-section {
             margin-bottom: 4rem;
             border-bottom: 1px solid var(--border-color);
@@ -635,12 +1815,16 @@
         }
         
         .tool-params,
-        .tool-example {
+        .tool-example,
+        .tool-response,
+        .tool-notes {
             margin-top: 1.5rem;
         }
         
         .tool-params h4,
-        .tool-example h4 {
+        .tool-example h4,
+        .tool-response h4,
+        .tool-notes h4 {
             color: var(--text-primary);
             font-size: 1.125rem;
             margin-bottom: 1rem;
@@ -668,7 +1852,8 @@
             font-weight: 600;
         }
         
-        .tool-example pre {
+        .tool-example pre,
+        .tool-response pre {
             background: var(--text-primary);
             color: #e2e8f0;
             padding: 1.5rem;
@@ -677,6 +1862,12 @@
             font-size: 0.875rem;
             line-height: 1.6;
             overflow-x: auto;
+        }
+        
+        .tool-notes p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
         }
         
         .error-types {

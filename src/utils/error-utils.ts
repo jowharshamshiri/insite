@@ -76,14 +76,12 @@ export function createErrorResponse(
   type: BrowserErrorType,
   message: string,
   details?: Record<string, unknown>
-) {
+): { isError: true; errorType: BrowserErrorType; content: string } {
   return {
-    success: false as const,
-    error: {
-      type,
-      message,
-      ...(details ? { details } : {}),
-    },
+    isError: true as const,
+    errorType: type,
+    content: message,
+    ...(details ? { details } : {}),
   };
 }
 

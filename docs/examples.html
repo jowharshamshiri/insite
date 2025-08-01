@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examples - InSite</title>
-    <meta name="description" content="Real-world examples and automation patterns for InSite platform">
+    <meta name="description" content="Examples and automation patterns for InSite platform">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
@@ -13,14 +13,13 @@
         <nav class="nav">
             <div class="nav-brand">
                 <h1><a href="index.html" style="text-decoration: none; color: inherit;">InSite</a></h1>
-                <span class="tagline">Enterprise Browser Automation</span>
+                <span class="tagline">Browser Automation</span>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="getting-started.html">Get Started</a></li>
                 <li><a href="api-reference.html">API Reference</a></li>
                 <li><a href="examples.html">Examples</a></li>
-                <li><a href="deployment.html">Deployment</a></li>
             </ul>
         </nav>
     </header>
@@ -30,8 +29,27 @@
             <div class="container">
                 <h1>Examples & Use Cases</h1>
                 <p class="hero-description">
-                    Real-world automation patterns and enterprise use cases for InSite platform.
+                    Automation patterns and use cases for InSite platform.
                 </p>
+                
+                <div class="installation-info">
+                    <h3>Quick Start</h3>
+                    <div class="install-command">
+                        <pre><code>npx insite-mcp</code></pre>
+                    </div>
+                    
+                    <h4>MCP Configuration</h4>
+                    <div class="config-example">
+                        <pre><code>{
+  "mcpServers": {
+    "insite": {
+      "command": "npx",
+      "args": ["insite-mcp"]
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -39,11 +57,11 @@
             <div class="container">
                 <div class="examples-grid">
                     <div class="example-category">
-                        <h2>🌐 Web Application Testing</h2>
+                        <h2>Page Control & Element Interaction</h2>
                         
                         <div class="example">
                             <h3>E-commerce Checkout Flow</h3>
-                            <p>Complete automated testing of shopping cart and checkout process with multiple payment methods.</p>
+                            <p>Automated testing of shopping cart and checkout process with multiple payment methods.</p>
                             
                             <div class="code-example">
                                 <pre><code>[
@@ -105,7 +123,7 @@
 
                         <div class="example">
                             <h3>Form Validation Testing</h3>
-                            <p>Comprehensive form validation testing with error handling and user feedback verification.</p>
+                            <p>Form validation testing with error handling and user feedback verification.</p>
                             
                             <div class="code-example">
                                 <pre><code>[
@@ -167,7 +185,7 @@
                     </div>
 
                     <div class="example-category">
-                        <h2>🔍 Performance Monitoring</h2>
+                        <h2>Monitoring & Console/Network Analysis</h2>
                         
                         <div class="example">
                             <h3>Page Load Performance Analysis</h3>
@@ -257,7 +275,7 @@
                     </div>
 
                     <div class="example-category">
-                        <h2>🧪 Visual Testing</h2>
+                        <h2>Visual Testing & Multi-Browser</h2>
                         
                         <div class="example">
                             <h3>Cross-Browser Visual Regression</h3>
@@ -321,11 +339,11 @@
                     </div>
 
                     <div class="example-category">
-                        <h2>🔧 Testing Framework Integration</h2>
+                        <h2>Test Integration & Reporting</h2>
                         
                         <div class="example">
                             <h3>Playwright Test Integration</h3>
-                            <p>Seamless integration with Playwright Test runner for enterprise test suites.</p>
+                            <p>Integration with Playwright Test runner for test suites.</p>
                             
                             <div class="code-example">
                                 <pre><code>[
@@ -340,7 +358,7 @@
     "arguments": {
       "action": "configure",
       "config": {
-        "testDir": "./e2e",
+        "testDir": "./tests/e2e",
         "workers": 4,
         "retries": 2,
         "projects": [
@@ -367,7 +385,7 @@
     "name": "playwright_test_adapter",
     "arguments": {
       "action": "run_test",
-      "testPath": "./e2e/critical-user-flows.spec.js",
+      "testPath": "./tests/e2e/critical-user-flows.spec.js",
       "outputDir": "./test-results"
     }
   },
@@ -389,7 +407,7 @@
 
                         <div class="example">
                             <h3>Advanced Test Reporting</h3>
-                            <p>Comprehensive test result aggregation and analytics across multiple frameworks.</p>
+                            <p>Test result aggregation and analytics across multiple frameworks.</p>
                             
                             <div class="code-example">
                                 <pre><code>[
@@ -445,11 +463,11 @@
                     </div>
 
                     <div class="example-category">
-                        <h2>🔒 Security & Debugging</h2>
+                        <h2>Security & Debugging</h2>
                         
                         <div class="example">
                             <h3>Security Validation Workflow</h3>
-                            <p>Comprehensive security scanning and validation for web applications.</p>
+                            <p>Security scanning and validation for web applications.</p>
                             
                             <div class="code-example">
                                 <pre><code>[
@@ -496,7 +514,7 @@
 
                         <div class="example">
                             <h3>Advanced Debugging Session</h3>
-                            <p>Step-by-step debugging with element highlighting and execution tracing.</p>
+                            <p>Debugging with element highlighting and execution tracing.</p>
                             
                             <div class="code-example">
                                 <pre><code>[
@@ -554,11 +572,11 @@
 
         <section class="section section-alt">
             <div class="container">
-                <h2>Enterprise Automation Patterns</h2>
+                <h2>Automation Patterns</h2>
                 
                 <div class="patterns-grid">
                     <div class="pattern-card">
-                        <h3>🔄 Continuous Testing Pipeline</h3>
+                        <h3>Continuous Testing Pipeline</h3>
                         <p>Integrate InSite into CI/CD pipelines for automated testing across environments.</p>
                         <ul>
                             <li>Multi-browser testing automation</li>
@@ -569,8 +587,8 @@
                     </div>
                     
                     <div class="pattern-card">
-                        <h3>📊 Quality Assurance Dashboard</h3>
-                        <p>Real-time monitoring and reporting for enterprise quality assurance teams.</p>
+                        <h3>Quality Assurance Dashboard</h3>
+                        <p>Real-time monitoring and reporting for quality assurance teams.</p>
                         <ul>
                             <li>Test result aggregation</li>
                             <li>Performance trend analysis</li>
@@ -580,8 +598,8 @@
                     </div>
                     
                     <div class="pattern-card">
-                        <h3>🛡️ Security Compliance Automation</h3>
-                        <p>Automated security validation and compliance checking for enterprise applications.</p>
+                        <h3>Security Compliance Automation</h3>
+                        <p>Security validation and compliance checking for applications.</p>
                         <ul>
                             <li>SSL certificate validation</li>
                             <li>CSP policy enforcement</li>
@@ -591,8 +609,8 @@
                     </div>
                     
                     <div class="pattern-card">
-                        <h3>⚡ Performance Optimization</h3>
-                        <p>Continuous performance monitoring and optimization recommendations.</p>
+                        <h3>Performance Optimization</h3>
+                        <p>Performance monitoring and optimization recommendations.</p>
                         <ul>
                             <li>Web Vitals tracking</li>
                             <li>Performance timeline analysis</li>
@@ -605,13 +623,6 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2025 InSite. Enterprise Browser Automation Platform.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="assets/script.js"></script>
     
@@ -726,6 +737,42 @@
             left: 0;
         }
         
+        .installation-info {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .installation-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .installation-info h4 {
+            color: var(--text-primary);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.125rem;
+        }
+        
+        .install-command, .config-example {
+            background: var(--text-primary);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        
+        .install-command pre, .config-example pre {
+            color: #e2e8f0;
+            padding: 1rem;
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+
         @media (max-width: 768px) {
             .example-category {
                 padding: 1.5rem;
@@ -733,6 +780,10 @@
             
             .patterns-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .installation-info {
+                padding: 1.5rem;
             }
         }
     </style>

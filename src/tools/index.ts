@@ -58,6 +58,60 @@ const coreTools: Tool[] = [
       },
     },
     {
+      name: 'scroll_to_element_and_screenshot',
+      description: 'Scroll to a specific element and take a screenshot of it',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          selector: {
+            type: 'string',
+            description: 'CSS selector to locate the element',
+          },
+          format: {
+            type: 'string',
+            enum: ['png', 'jpeg'],
+            description: 'Image format (default: png)',
+          },
+          quality: {
+            type: 'number',
+            minimum: 0,
+            maximum: 100,
+            description: 'Image quality (0-100, only for JPEG)',
+          },
+          timeout: {
+            type: 'number',
+            description: 'Timeout in milliseconds to wait for element',
+          },
+        },
+        required: ['selector'],
+      },
+    },
+    {
+      name: 'capture_full_scrollable_page',
+      description: 'Capture the entire scrollable page height in one long image',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          format: {
+            type: 'string',
+            enum: ['png', 'jpeg'],
+            description: 'Image format (default: png)',
+          },
+          quality: {
+            type: 'number',
+            minimum: 0,
+            maximum: 100,
+            description: 'Image quality (0-100, only for JPEG)',
+          },
+          timeout: {
+            type: 'number',
+            description: 'Timeout in milliseconds for large page capture',
+          },
+        },
+        required: [],
+      },
+    },
+    {
       name: 'get_current_url',
       description: 'Get the current page URL',
       inputSchema: {

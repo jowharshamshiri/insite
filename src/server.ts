@@ -15,6 +15,8 @@ import {
 import { BrowserManager, type BrowserEngine } from './browser-manager.js';
 import { registerTools } from './tools/index.js';
 import { BrowserAutomationError, type ToolResult } from './types.js';
+import path from 'path';
+import os from 'os';
 
 /**
  * InSite Server class
@@ -22,6 +24,7 @@ import { BrowserAutomationError, type ToolResult } from './types.js';
 class InSiteServer {
   private server: Server;
   private browserManager: BrowserManager;
+  private tempDir: string;
 
   constructor() {
     this.server = new Server(
@@ -45,6 +48,8 @@ class InSiteServer {
       timeout: parseInt(process.env['TIMEOUT'] ?? '30000'),
     });
 
+    this.tempDir = path.join(os.tmpdir(), 'insite-screenshots');
+
     this.setupHandlers();
   }
 
@@ -59,49 +64,72 @@ class InSiteServer {
       };
     });
 
-    // Handle tool calls
+    // Handle tool calls with comprehensive error handling
     this.server.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest) => {
       try {
-        const result = await this.handleToolCall(request);
+        // Validate request structure
+        if (!request.params || !request.params.name) {
+          return this.createSafeErrorResponse('INVALID_REQUEST', 'Missing tool name in request');
+        }
+
+        // Add timeout to prevent hanging
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Tool call timeout')), 60000); // 60 second timeout
+        });
+
+        const toolCallPromise = this.handleToolCall(request);
+        const result = await Promise.race([toolCallPromise, timeoutPromise]);
+        
+        // Ensure result is properly formatted
+        if (!result || typeof result !== 'object') {
+          return this.createSafeErrorResponse('INVALID_RESPONSE', 'Tool returned invalid response format');
+        }
+
         return result;
       } catch (error) {
         console.error('Tool call error:', error);
         
+        // Always return a safe, well-formed response
         if (error instanceof BrowserAutomationError) {
-          return {
-            content: [
-              {
-                type: 'text',
-                text: JSON.stringify({
-                  success: false,
-                  error: {
-                    type: error.type,
-                    message: error.message,
-                    details: error.details,
-                  },
-                } as ToolResult),
-              },
-            ],
-          };
+          return this.createSafeErrorResponse(error.type, error.message, error.details);
         }
 
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify({
-                success: false,
-                error: {
-                  type: 'JAVASCRIPT_ERROR',
-                  message: error instanceof Error ? error.message : 'Unknown error occurred',
-                  details: { originalError: error },
-                },
-              } as ToolResult),
-            },
-          ],
-        };
+        // Handle timeout specifically
+        if (error && (error as Error).message === 'Tool call timeout') {
+          return this.createSafeErrorResponse('TIMEOUT_ERROR', 'Tool call exceeded maximum execution time');
+        }
+
+        // Catch-all for unexpected errors
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        return this.createSafeErrorResponse('JAVASCRIPT_ERROR', errorMessage);
       }
     });
+  }
+
+  /**
+   * Create a safe, well-formed error response that won't break Claude
+   */
+  private createSafeErrorResponse(
+    errorType: string, 
+    message: string, 
+    details?: Record<string, unknown>
+  ): { content: Array<{ type: 'text'; text: string }> } {
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify({
+            success: false,
+            error: {
+              type: errorType,
+              message: message,
+              ...(details ? { details } : {}),
+              timestamp: new Date().toISOString(),
+            },
+          }),
+        },
+      ],
+    };
   }
 
   /**
@@ -114,7 +142,27 @@ class InSiteServer {
 
     // Ensure browser is initialized for all operations except close_browser
     if (name !== 'close_browser' && !this.browserManager.isInitialized()) {
-      await this.browserManager.initialize();
+      try {
+        await this.browserManager.initialize();
+      } catch (initError) {
+        console.error('Browser initialization failed:', initError);
+        return this.createSafeErrorResponse(
+          'BROWSER_INIT_ERROR',
+          'Failed to initialize browser',
+          { originalError: initError instanceof Error ? initError.message : 'Unknown error' }
+        );
+      }
+    }
+
+    // Add browser health check for critical operations
+    if (['load_page', 'screenshot', 'click_element', 'type_text'].includes(name)) {
+      if (!this.browserManager.getCurrentUrl() && name !== 'load_page') {
+        return this.createSafeErrorResponse(
+          'BROWSER_STATE_ERROR',
+          'No page loaded. Use load_page first.',
+          { suggestions: ['Call load_page with a URL before performing page interactions'] }
+        );
+      }
     }
 
     let result: ToolResult;
@@ -126,6 +174,23 @@ class InSiteServer {
 
       case 'screenshot':
         result = await this.takeScreenshot(args as { fullPage?: boolean; quality?: number });
+        break;
+
+      case 'scroll_to_element_and_screenshot':
+        result = await this.scrollToElementAndScreenshot(args as { 
+          selector: string; 
+          quality?: number; 
+          format?: 'png' | 'jpeg';
+          timeout?: number; 
+        });
+        break;
+
+      case 'capture_full_scrollable_page':
+        result = await this.captureFullScrollablePage(args as { 
+          quality?: number; 
+          format?: 'png' | 'jpeg';
+          timeout?: number; 
+        });
         break;
 
       case 'get_current_url':
@@ -454,14 +519,24 @@ class InSiteServer {
         };
     }
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(result),
-        },
-      ],
-    };
+    // Ensure result is safely formatted
+    try {
+      const jsonString = JSON.stringify(result);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: jsonString,
+          },
+        ],
+      };
+    } catch (jsonError) {
+      console.error('JSON serialization error:', jsonError);
+      return this.createSafeErrorResponse(
+        'SERIALIZATION_ERROR', 
+        'Failed to serialize tool result'
+      );
+    }
   }
 
   /**
@@ -650,6 +725,92 @@ class InSiteServer {
       return {
         success: true,
         data: { title },
+      };
+    } catch (error) {
+      if (error instanceof BrowserAutomationError) {
+        return {
+          success: false,
+          error: {
+            type: error.type,
+            message: error.message,
+            ...(error.details ? { details: error.details } : {}),
+          },
+        };
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Scroll to element and screenshot tool implementation
+   */
+  private async scrollToElementAndScreenshot(args: { 
+    selector: string; 
+    quality?: number; 
+    format?: 'png' | 'jpeg';
+    timeout?: number; 
+  }): Promise<ToolResult> {
+    try {
+      const timestamp = Date.now();
+      const filePath = path.join(this.tempDir, `element-screenshot-${timestamp}.${args.format || 'png'}`);
+      
+      const screenshotPath = await this.browserManager.scrollToElementAndScreenshot(args.selector, {
+        filePath,
+        ...(args.quality !== undefined ? { quality: args.quality } : {}),
+        ...(args.format !== undefined ? { format: args.format } : {}),
+        ...(args.timeout !== undefined ? { timeout: args.timeout } : {}),
+      });
+      
+      return {
+        success: true,
+        data: {
+          screenshot: screenshotPath,
+          selector: args.selector,
+          format: args.format || 'png',
+          message: 'Element screenshot captured successfully',
+        },
+      };
+    } catch (error) {
+      if (error instanceof BrowserAutomationError) {
+        return {
+          success: false,
+          error: {
+            type: error.type,
+            message: error.message,
+            ...(error.details ? { details: error.details } : {}),
+          },
+        };
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Capture full scrollable page tool implementation
+   */
+  private async captureFullScrollablePage(args: { 
+    quality?: number; 
+    format?: 'png' | 'jpeg';
+    timeout?: number; 
+  }): Promise<ToolResult> {
+    try {
+      const timestamp = Date.now();
+      const filePath = path.join(this.tempDir, `full-page-${timestamp}.${args.format || 'png'}`);
+      
+      const screenshotPath = await this.browserManager.captureFullScrollablePage({
+        filePath,
+        ...(args.quality !== undefined ? { quality: args.quality } : {}),
+        ...(args.format !== undefined ? { format: args.format } : {}),
+        ...(args.timeout !== undefined ? { timeout: args.timeout } : {}),
+      });
+      
+      return {
+        success: true,
+        data: {
+          screenshot: screenshotPath,
+          format: args.format || 'png',
+          message: 'Full scrollable page captured successfully',
+        },
       };
     } catch (error) {
       if (error instanceof BrowserAutomationError) {
