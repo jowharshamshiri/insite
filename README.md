@@ -2,6 +2,10 @@
 
 A Model Context Protocol (MCP) server implementation that provides browser automation tools using Playwright. Contains 50 tools organized into 13 categories.
 
+[![npm version](https://img.shields.io/npm/v/insite-mcp.svg)](https://www.npmjs.com/package/insite-mcp)
+[![npm downloads](https://img.shields.io/npm/dm/insite-mcp.svg)](https://www.npmjs.com/package/insite-mcp)
+[![License](https://img.shields.io/npm/l/insite-mcp.svg)](LICENSE)
+
 ## Overview
 
 InSite is an MCP server that wraps Playwright browser automation functionality. It supports multiple browser engines (Chromium, Firefox, WebKit) and provides tools for page navigation, DOM interaction, JavaScript execution, and monitoring.
